@@ -4,8 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-double designScreenWidth = 375;
-double designScreenHeight = 812;
+double designScreenWidth = 375; //figma design width
+double designScreenHeight = 812; //figma design height
 
 double getScreenHeight({required context}) {
   return MediaQuery.of(context).size.height;
@@ -82,10 +82,8 @@ Widget getRichText(
 
 Color lightenColour(Color color, [double amount = 0.49]) {
   assert(amount >= 0 && amount <= 1);
-
   final hsl = HSLColor.fromColor(color);
   final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
-
   return hslLight.toColor();
 }
 

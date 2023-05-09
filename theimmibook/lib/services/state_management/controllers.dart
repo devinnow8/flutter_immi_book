@@ -1,12 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:theimmibook/services/state_management/authState.dart';
+import 'package:theimmibook/services/state_management/auth_state.dart';
 
 AuthState getAuthStateController() {
   if (Get.isRegistered<AuthState>()) {
-    print('AuthController already exists');
+    if (kDebugMode) {
+      print('AuthController already exists');
+    }
     return Get.find<AuthState>();
   } else {
-    print('AuthController will be created now');
+    if (kDebugMode) {
+      print('AuthController will be created now');
+    }
     return Get.put(AuthState());
   }
 }

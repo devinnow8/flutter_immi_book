@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:get/get.dart';
-import 'package:theimmibook/services/storage/localGetStorage.dart';
+import 'package:theimmibook/services/storage/local_get_storage.dart';
 
 class AuthState extends GetxController {
   // ignore: prefer_final_fields
