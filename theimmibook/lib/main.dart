@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:theimmibook/routes/routes.dart';
 import 'package:theimmibook/screens/screen_holder/app_holder.dart';
 import 'package:theimmibook/utils/app_translations.dart';
@@ -17,33 +18,65 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp.router(
         title: 'The ImmiBook',
         translationsKeys: AppTranslation.translationsKeys,
-        fallbackLocale: const Locale('en', 'US'),
-        locale: const Locale('en', 'Us'),
+        fallbackLocale: const Locale(
+          'en',
+          'US',
+        ),
+        locale: const Locale(
+          'en',
+          'Us',
+        ),
         theme: ThemeData(
+            
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            textTheme: const TextTheme(
+              bodyLarge: TextStyle(fontSize: 70, fontWeight: FontWeight.w700),
+              bodyMedium: TextStyle(fontSize: 30),
+              bodySmall: TextStyle(fontSize: 16),
+              displayLarge: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+                color: Color.fromRGBO(216, 102, 46, 1),
+              ),
+              displayMedium: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(255, 255, 255, 1),
+              ),
+            ),
             useMaterial3: true,
             colorScheme: ColorScheme(
-                brightness: Brightness.light,
+              brightness: Brightness.dark,
                 primary: const Color.fromARGB(255, 0, 0, 0),
                 onPrimary: Colors.white,
-                secondary: const Color.fromARGB(255, 115, 229, 185),
+              secondary: const Color.fromRGBO(24, 23, 28, 0.5),
                 onSecondary: const Color.fromARGB(255, 255, 255, 255),
                 error: Colors.yellow.shade100,
                 onError: Colors.yellow.shade700,
-                background: const Color.fromARGB(255, 241, 241, 241),
+              background: const Color.fromRGBO(45, 45, 45, 1),
                 onBackground: Colors.black54,
-                surface: const Color.fromARGB(255, 255, 255, 255),
-                onSurface: Colors.black54)),
+              surface: const Color.fromRGBO(45, 45, 45, 1),
+              onSurface: const Color.fromARGB(255, 255, 255, 255),
+            ),
+            fontFamily: GoogleFonts.robotoSlab().fontFamily),
         getPages: AppPages.pages,
         routeInformationParser: AppInformationParser(),
         unknownRoute: AppPages.pages[0],
         transitionDuration: Duration.zero,
         routerDelegate: AppRouterDelegate(),
         builder: (context, child) {
-          return Overlay(initialEntries: [
+          final MediaQueryData data = MediaQuery.of(context);
+          return MediaQuery(
+              data: data.copyWith(textScaleFactor: 1),
+              child: Overlay(initialEntries: [
             OverlayEntry(
                 builder: (context) =>
-                    AppHolder(child: child ?? const SizedBox()))
-          ]);
+                
+                    AppHolder(
+                    child: child ?? const SizedBox(),
+                  ),
+                )
+              ]));
         });
   }
 }

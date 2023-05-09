@@ -4,8 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-double designScreenWidth = 375; //figma design width
-double designScreenHeight = 812; //figma design height
+import 'consts.dart';
+
 
 double getScreenHeight({required context}) {
   return MediaQuery.of(context).size.height;
