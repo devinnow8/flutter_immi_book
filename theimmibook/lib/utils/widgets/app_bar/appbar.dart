@@ -1,25 +1,34 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
+import 'package:theimmibook/utils/widgets/common/nav_link.dart';
 
-PreferredSizeWidget getAppBar(context, int mode) {
+PreferredSizeWidget getAppBar(context, double screenWidth, scaffoldKey) {
   //mode : 0 largeScreendesktop, 1 desktop, 2 tab,3 mobile
 
-  double _maxWidth = 0;
-  _maxWidth = mode == 0
-      ? 1920 - designHorizontalPadding * 2
-      : (mode == 1 ? 1200 : (mode == 2 ? 700 : 576));
+  print(screenWidth);
 
-  if (GetPlatform.isAndroid || GetPlatform.isIOS) {
-    return AppBar();
+  double maxWidth = 1920 - designHorizontalPadding * 2;
+  if (screenWidth <= 1200) {
+    maxWidth = 1920 - designHorizontalPadding * 2;
+  }
+  print(maxWidth);
+  if (!kIsWeb) {
+    return AppBar(
+      backgroundColor: Colors.blue,
+    );
   } else {
     return AppBar(
-      toolbarHeight: 80,
+     
+      toolbarHeight: appbarHeight,
       leadingWidth: 0,
-
+      automaticallyImplyLeading: false,
       title: Container(
         constraints: BoxConstraints(
-          maxWidth: (_maxWidth),
+          maxWidth: (maxWidth),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,25 +38,76 @@ PreferredSizeWidget getAppBar(context, int mode) {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'immibookTitle'.tr,
-                    style: Theme.of(context).textTheme.displayLarge,
-                    textScaleFactor: 1,
+              
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxWidth: screenWidth > 320
+                            ? 280
+                            : (screenWidth > 250 ? 140 : 80)),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'immibookTitle'.tr,
+                        style: Theme.of(context).textTheme.displayLarge,
+                        textScaleFactor: 1,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
+            (screenWidth < 786)
+                ? const SizedBox()
+                : screenWidth < 1200
+                    ? Row(
+                        children: [
+                          NavLink(
+                              text: 'home'.tr,
+                              onClick: () {},
+                              style: Theme.of(context).textTheme.displayMedium),
+                          const SizedBox(
+                            width: 40,
+                          ),
+                          NavLink(
+                              text: 'services'.tr,
+                              onClick: () {},
+                              style: Theme.of(context).textTheme.displayMedium),
+                          const SizedBox(
+                            width: 40,
+                          ),
+                          NavLink(
+                              text: 'events'.tr,
+                              onClick: () {},
+                              style: Theme.of(context).textTheme.displayMedium),
+                          const SizedBox(
+                            width: 40,
+                          ),
+                          NavLink(
+                              text: 'register'.tr,
+                              onClick: () {},
+                              style: Theme.of(context).textTheme.displayMedium)
+                        ],
+                      )
+                    :
             Row(
               children: [
-                ...menuItems.map(
+                          ...navMenuItems.map(
                   (e) => Container(
                     margin: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                    child: Text(
-                      e,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                  ),
-                )
+                              child: NavLink(
+                                  text: e,
+                                  onClick: () {
+                                    print('Clicked');
+                                  },
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium),
+                            ),
+                          ),
+                          NavLink(
+                              text: 'register'.tr,
+                              onClick: () {},
+                              style: Theme.of(context).textTheme.displayMedium)
               ],
             )
           ],
@@ -59,17 +119,32 @@ PreferredSizeWidget getAppBar(context, int mode) {
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
 
-      actions: const [],
+      actions: [
+        (screenWidth < 786)
+            ? SizedBox(
+                width: 70,
+                child: IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState.openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    size: 40,
+                  ),
+                ),
+              )
+            : const SizedBox()
+      ],
     );
   }
 }
 
-List menuItems = [
+List navMenuItems = [
   'home'.tr,
   'about'.tr,
   'services'.tr,
   'jobs'.tr,
   'accomodations'.tr,
   'events'.tr,
-  'register'.tr
+ 
 ];
