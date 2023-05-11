@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:theimmibook/routes/routes.dart';
-import 'package:theimmibook/screens/screen_holder/app_holder.dart';
+import 'package:theimmibook/services/routing/router_config.dart';
 import 'package:theimmibook/utils/app_translations.dart';
 
 void main() {
@@ -34,9 +34,9 @@ class MyApp extends StatelessWidget {
               bodyMedium: TextStyle(fontSize: 30),
               bodySmall: TextStyle(fontSize: 16),
               displayLarge: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w700,
-                color: Color.fromRGBO(216, 102, 46, 1),
+              fontSize: 40,
+              fontWeight: FontWeight.w400,
+              color: Color.fromRGBO(255, 255, 255, 1),
               ),
               displayMedium: TextStyle(
                 fontSize: 16,
@@ -60,23 +60,10 @@ class MyApp extends StatelessWidget {
             ),
             fontFamily: GoogleFonts.robotoSlab().fontFamily),
         getPages: AppPages.pages,
-        routeInformationParser: AppInformationParser(),
-        unknownRoute: AppPages.pages[0],
+      routeInformationParser: MyRouter().router.routeInformationParser,
+      //  unknownRoute: AppPages.pages[0],
         transitionDuration: Duration.zero,
-        routerDelegate: AppRouterDelegate(),
-        builder: (context, child) {
-          final MediaQueryData data = MediaQuery.of(context);
-          return MediaQuery(
-              data: data.copyWith(textScaleFactor: 1),
-              child: Overlay(initialEntries: [
-            OverlayEntry(
-                builder: (context) =>
-                
-                    AppHolder(
-                    child: child ?? const SizedBox(),
-                  ),
-                )
-              ]));
-        });
+      routerDelegate: MyRouter().router.routerDelegate,
+    );
   }
 }

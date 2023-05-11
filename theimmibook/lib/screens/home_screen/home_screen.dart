@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theimmibook/services/state_management/controllers.dart';
+import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
+import 'package:theimmibook/screens/home_screen/widgets/posts.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
+import 'package:theimmibook/utils/widgets/app_bar/appbar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -13,79 +15,201 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final ScrollController _scrollController = ScrollController();
-
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = getScreenWidth(context: context);
-    double maxWidth = 1920 - designHorizontalPadding * 2;
-    if (screenWidth <= 1200) {
-      maxWidth = 1920 - designHorizontalPadding * 2;
-    }
-    return SelectionArea(
-      child: Scrollbar(
-        trackVisibility: true,
-        controller: _scrollController,
-        thumbVisibility: true,
-        child: SingleChildScrollView(
+    //double maxWidth =
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: ScrollbarTheme(
+        data: ScrollbarThemeData(
+            thumbColor:
+                MaterialStateColor.resolveWith((states) => Colors.grey)),
+        child: Scrollbar(
+          trackVisibility: true,
+          thickness: 10,
+          hoverThickness: 10,
           controller: _scrollController,
-          child: Column(
-            children: [
-              Container(
-                  width: getScreenWidth(context: context),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        'hero.png',
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(
-                        width: 728,
-                        child: Text(
-                          'heroTagline'.tr,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  )),
-              Obx(
-                () => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'underConstruction'.tr,
-                    ),
-                    Text(
-                      '${authStateController.test}',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ],
-                ),
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+              child: Column(
+                children: [
+                  SizedBox(
+                      width: getScreenWidth(context: context),
+                      child: Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          Image.asset(
+                            'hero.png',
+                            height: getScreenHeight(context: context) + 100,
+                            fit: BoxFit.cover,
+                            width: getScreenWidth(context: context),
+                          ),
+                          Container(
+                            width: getScreenWidth(context: context),
+                            height: getScreenHeight(context: context) + 100,
+                            color: const Color.fromRGBO(0, 0, 0, .74),
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 60),
+                                  child: const MyAppBar()),
+                              SizedBox(
+                                height: 500,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    divider(),
+                                    SizedBox(
+                                      width: 1100,
+                                      child: Text(
+                                        'heroTagline'.tr,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    divider(),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 110,
+                              ),
+                              Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(26),
+                                    child: Image.network(
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrPqV53Ztw855ECIqr_bKBwiKg9oz2-xoWIGPt8bS4Bg&usqp=CAU&ec=48600112',
+                                      fit: BoxFit.fill,
+                                      width: desktopSubSectionWidth,
+                                      height: 272,
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 56, horizontal: 100),
+                                    width: desktopSubSectionWidth,
+                                    height: 272,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(26),
+                                        color: const Color.fromRGBO(
+                                            0, 0, 0, 0.74)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                child: Text('data'),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 54,
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                child: Text('data'),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
+                                        Expanded(
+                                          child: Wrap(
+                                            spacing: 30,
+                                            runSpacing: 20,
+                                            children: [
+                                              ...searchmenuItems.map(
+                                                (e) => Container(
+                                                  alignment: Alignment.center,
+                                                  width: 150,
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 15),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    border: Border.all(
+                                                        color: Colors.white),
+                                                  ),
+                                                  child: Text(
+                                                    e,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 160,
+                  ),
+                  const Posts(),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  const Jobs(),
+                  const SizedBox(
+                    height: 300,
+                  ),
+                ],
               ),
-ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: maxWidth),
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    ...dummyCards.map((e) => sectionCard((maxWidth / 3) - 20))
-                  ],
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
 
+List searchmenuItems = [
+  'All categories',
+  'Events',
+  'Jobs',
+  'Accomodations',
+  'Advertisements',
+  'Services',
+];
 
 
 List dummyCards = [
@@ -120,4 +244,21 @@ Widget sectionCard(double maxWidth) {
       ),
     );
   });
+}
+
+
+Widget divider() {
+  return Row(
+    children: const [
+      SizedBox(
+        width: 100,
+      ),
+      Expanded(
+        child: Divider(
+          height: 4,
+          color: Color.fromARGB(128, 255, 255, 255),
+        ),
+      ),
+    ],
+  );
 }

@@ -18,6 +18,8 @@ final Map<String, String> enUS = {
   'events': 'Events',
   'register': 'Register or Sign In',
   'heroTagline': 'Everything you need to know about after immigration',
+  'postsTitle': 'Posts',
+  'jobsTitle': 'Jobs',
 };
 
 final Map<String, String> heIN = {'greeting': 'Namaste', 'day': "Sukhad Din"};

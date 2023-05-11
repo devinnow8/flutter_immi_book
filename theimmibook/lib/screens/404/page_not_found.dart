@@ -5,11 +5,13 @@ class PageNotFound extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        '404 : page not found!',
-        textScaleFactor: 6,
-        style: TextStyle(fontWeight: FontWeight.w600),
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          '404 : page not found!',
+          textScaleFactor: 6,
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
       ),
     );
   }
