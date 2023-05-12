@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
+import 'package:theimmibook/utils/ui_utilities.dart';
 
 class Jobs extends StatefulWidget {
   const Jobs({super.key});
@@ -23,7 +26,7 @@ class _JobsState extends State<Jobs> {
           mediumLargeScreen = true;
         }
 
-        print(constraints.maxWidth);
+        log(constraints.maxWidth.toString());
         return Column(
           children: [
             ConstrainedBox(
@@ -41,13 +44,9 @@ class _JobsState extends State<Jobs> {
                         fontWeight: FontWeight.w800,
                         fontSize: 60),
                   ),
-                  const CircleAvatar(
-                    radius: 35,
-                    backgroundColor: accentColor,
-                    child: Icon(
-                      Icons.add,
-                      size: 40,
-                    ),
+                  Text(
+                    'viewMore'.tr,
+                    style: const TextStyle(color: accentColor),
                   ),
                 ],
               ),
@@ -86,70 +85,115 @@ class _JobsState extends State<Jobs> {
   }
 }
 
+
 Widget jobCard() {
   String title = jobCardsData[0]['title'];
   String subTitle = jobCardsData[0]['subTitle'];
   String description = jobCardsData[0]['description'];
   String imageUrl = jobCardsData[0]['imageUrl'];
+var scale = 1.0.obs;
+
   return LayoutBuilder(
     builder: (buildContext, constraints) =>
         StatefulBuilder(builder: (context, setState) {
-      print('----->>>>' + constraints.maxWidth.toString());
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 350),
-          width: constraints.maxWidth < 980 && constraints.maxWidth > 630
-              ? 300
-              : 629,
-          height: constraints.maxWidth < 980 && constraints.maxWidth > 630
-              ? 629
-              : 300,
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 19, 19, 1),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Flex(
-            direction: constraints.maxWidth < 980 && constraints.maxWidth > 630
-                ? Axis.vertical
-                : Axis.horizontal,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Image.network(
-                  imageUrl,
+      log('----->>>>${constraints.maxWidth}');
+      return MouseRegion(
+        cursor: MaterialStateMouseCursor.clickable,
+        onEnter: (_) {
+          setState(
+            () {
+              log('expanding');
+              scale.value = 1.05;
+            },
+          );
+        },
+        onExit: (_) {
+          setState(
+            () {
+              scale.value = 1.0;
+            },
+          );
+        },
+        child: Obx(
+          () => AnimatedScale(
+            scale: scale.value,
+            duration: const Duration(milliseconds: 350),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 350),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    scale.value == 1
+                        ? const BoxShadow()
+                        : const BoxShadow(
+                            color: accentColor, spreadRadius: 2, blurRadius: 15)
+                  ]),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Container(
+                  width:
+                      constraints.maxWidth < 980 && constraints.maxWidth > 630
+                          ? 300
+                          : 629,
                   height:
                       constraints.maxWidth < 980 && constraints.maxWidth > 630
-                          ? 319
-                          : double.maxFinite,
-                  fit: BoxFit.fitHeight,
+                          ? 629
+                          : 300,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 19, 19, 1),
+                    borderRadius: BorderRadius.circular(10),
+                     
+                  ),
+                  child: Flex(
+                    direction:
+                        constraints.maxWidth < 980 && constraints.maxWidth > 630
+                            ? Axis.vertical
+                            : Axis.horizontal,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          imageUrl,
+                          height: constraints.maxWidth < 980 &&
+                                  constraints.maxWidth > 630
+                              ? 319
+                              : double.maxFinite,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                      Expanded(
+                          child: Container(
+                        width: constraints.maxWidth < 980 &&
+                                constraints.maxWidth > 630
+                            ? double.maxFinite
+                            : 319,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 37, vertical: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              title,
+                              style: const TextStyle(fontSize: 25),
+                            ),
+                            Text(subTitle,
+                                style: const TextStyle(
+                                    fontSize: 20, color: accentColor)),
+                            Text(description,
+                                style: const TextStyle(fontSize: 16))
+                          ],
+                        ),
+                      ))
+                    ],
+                  ),
                 ),
               ),
-              Expanded(
-                  child: Container(
-                width: constraints.maxWidth < 980 && constraints.maxWidth > 630
-                    ? double.maxFinite
-                    : 319,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(fontSize: 25),
-                    ),
-                    Text(subTitle,
-                        style:
-                            const TextStyle(fontSize: 20, color: accentColor)),
-                    Text(description, style: const TextStyle(fontSize: 16))
-                  ],
-                ),
-              ))
-            ],
+            ),
           ),
         ),
+        
+        
       );
     }),
   );

@@ -12,4 +12,4 @@ double mobileWidth = 576;
 
 double desktopSubSectionWidth = 1291;
 
-const Color accentColor = Color.fromRGBO(54, 188, 186, 1);
+const Color accentColor = Color.fromRGBO(183, 119, 234, 1);

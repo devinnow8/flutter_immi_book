@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,26 +14,26 @@ class Posts extends StatefulWidget {
 }
 
 class _PostsState extends State<Posts> {
-  CarouselController _carousalController = CarouselController();
+  final CarouselController _carousalController = CarouselController();
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (buildContext, constraints) {
         bool isMobile = constraints.maxWidth <= mobileWidth;
-        bool _mediumLargeScreen = false;
-        bool _smallLargeScreen = false;
+        bool mediumLargeScreen = false;
+        bool smallLargeScreen = false;
         if (constraints.maxWidth <= 1360) {
-          _smallLargeScreen = true;
+          smallLargeScreen = true;
         } else if (constraints.maxWidth <= 1700) {
-          _mediumLargeScreen = true;
+          mediumLargeScreen = true;
         }
 
-        print(constraints.maxWidth);
+        log(constraints.maxWidth.toString());
         return Column(
           children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: _smallLargeScreen
+                  maxWidth: smallLargeScreen
                       ? desktopSubSectionWidth * 0.75
                       : desktopSubSectionWidth - 80),
               child: Row(
@@ -60,12 +62,12 @@ class _PostsState extends State<Posts> {
             ),
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: _smallLargeScreen
+                  maxWidth: smallLargeScreen
                       ? designScreenWidth
                       : constraints.maxWidth - 80),
               child: Container(
                 child: Row(
-                    mainAxisAlignment: _mediumLargeScreen || _smallLargeScreen
+                    mainAxisAlignment: mediumLargeScreen || smallLargeScreen
                         ? MainAxisAlignment.spaceEvenly
                         : MainAxisAlignment.spaceBetween,
                     children: [
@@ -82,22 +84,23 @@ class _PostsState extends State<Posts> {
                           child: SvgPicture.asset('navArrow.svg')),
                       ConstrainedBox(
                         constraints: BoxConstraints(
-                            maxWidth: _mediumLargeScreen
+                            maxWidth: mediumLargeScreen
                                 ? desktopSubSectionWidth * .75
-                                : (_smallLargeScreen
+                                : (smallLargeScreen
                                     ? constraints.maxWidth * 0.7
                                     : desktopSubSectionWidth)),
                         child: CarouselSlider(
                             items: [
                               ...postCardsData.map((e) => Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   child: postCard()))
                             ],
                             carouselController: _carousalController,
                             options: CarouselOptions(
                               height: 509,
                               aspectRatio: 0.79,
-                              viewportFraction: _smallLargeScreen ? 0.5 : 0.33,
+                              viewportFraction: smallLargeScreen ? 0.5 : 0.33,
                               initialPage: 0,
                               enableInfiniteScroll: false,
                               reverse: false,
@@ -143,41 +146,46 @@ Widget postCard() {
   String description = postCardsData[0]['description'];
   String imageUrl = postCardsData[0]['imageUrl'];
   return StatefulBuilder(builder: (context, setState) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(30),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 350),
-        width: double.maxFinite,
-        height: 509,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white38),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.network(
-              imageUrl,
-              width: double.maxFinite,
-              fit: BoxFit.fitWidth,
-            ),
-            Expanded(
-                child: Container(
-              color: const Color.fromARGB(255, 0, 0, 0),
-              padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(fontSize: 25),
-                  ),
-                  Text(subTitle,
-                      style: const TextStyle(fontSize: 20, color: accentColor)),
-                  Text(description, style: const TextStyle(fontSize: 16))
-                ],
+    return MouseRegion(
+      cursor: MaterialStateMouseCursor.clickable,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 350),
+          width: double.maxFinite,
+          height: 509,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: Colors.white38),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.network(
+                imageUrl,
+                width: double.maxFinite,
+                fit: BoxFit.fitWidth,
               ),
-            ))
-          ],
+              Expanded(
+                  child: Container(
+                color: const Color.fromARGB(255, 0, 0, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(fontSize: 25),
+                    ),
+                    Text(subTitle,
+                        style:
+                            const TextStyle(fontSize: 20, color: accentColor)),
+                    Text(description, style: const TextStyle(fontSize: 16))
+                  ],
+                ),
+              ))
+            ],
+          ),
         ),
       ),
     );

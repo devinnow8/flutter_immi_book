@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:theimmibook/screens/home_screen/widgets/accomodations.dart';
+import 'package:theimmibook/screens/home_screen/widgets/events.dart';
 import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
 import 'package:theimmibook/screens/home_screen/widgets/posts.dart';
+import 'package:theimmibook/screens/home_screen/widgets/register.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/app_bar/appbar.dart';
@@ -24,11 +27,14 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.white,
       body: ScrollbarTheme(
         data: ScrollbarThemeData(
+          
             thumbColor:
                 MaterialStateColor.resolveWith((states) => Colors.grey)),
         child: Scrollbar(
+          
           trackVisibility: true,
           thickness: 10,
+          
           hoverThickness: 10,
           controller: _scrollController,
           thumbVisibility: true,
@@ -74,6 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge,
+                                        textScaleFactor:
+                                            textScaleF2F(context: context),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -113,12 +121,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Expanded(
                                               flex: 1,
                                               child: Container(
-                                                child: Text('data'),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                   color: Colors.white,
                                                 ),
+                                                child: const Text('data'),
                                               ),
                                             ),
                                             const SizedBox(
@@ -127,12 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Expanded(
                                               flex: 1,
                                               child: Container(
-                                                child: Text('data'),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                   color: Colors.white,
                                                 ),
+                                                child: const Text('data'),
                                               ),
                                             )
                                           ],
@@ -187,7 +195,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     height: 100,
                   ),
+                  const Events(),
+                  const SizedBox(
+                    height: 100,
+                  ),
                   const Jobs(),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  const Register(),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  const Accomodations(),
                   const SizedBox(
                     height: 300,
                   ),
@@ -248,8 +268,8 @@ Widget sectionCard(double maxWidth) {
 
 
 Widget divider() {
-  return Row(
-    children: const [
+  return const Row(
+    children: [
       SizedBox(
         width: 100,
       ),
@@ -258,6 +278,9 @@ Widget divider() {
           height: 4,
           color: Color.fromARGB(128, 255, 255, 255),
         ),
+      ),
+      SizedBox(
+        width: 100,
       ),
     ],
   );

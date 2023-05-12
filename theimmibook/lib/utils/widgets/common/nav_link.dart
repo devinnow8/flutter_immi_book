@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:theimmibook/utils/consts.dart';
 
 class NavLink extends StatefulWidget {
   final String text;
@@ -37,7 +38,8 @@ class _NavLinkState extends State<NavLink> {
             widget.text,
             style: hover == true
                 ? widget.style!
-                    .merge(const TextStyle(fontWeight: FontWeight.w600))
+                    .merge(const TextStyle(
+                    fontWeight: FontWeight.w600, color: accentColor))
                 : widget.style,
           )),
     );

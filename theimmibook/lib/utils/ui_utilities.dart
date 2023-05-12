@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,6 +39,9 @@ double textSizeF2F({required double tSize, required context}) {
 }
 
 double textScaleF2F({required context}) {
+  if (kIsWeb) {
+    return (getScreenWidth(context: context) / (designScreenWidth));
+  }
   if (Platform.isIOS) {
     double scaleFactor =
         (getScreenHeight(context: context) / (designScreenHeight));
@@ -58,7 +62,7 @@ Widget getRichText(
 
   List<String> strings = text.split('<-link->');
 
-  strings.forEach((element) {
+  for (var element in strings) {
     if (element.contains('<-url->')) {
       dynamic tmp = element.split('<-url->');
       texts.add(TextSpan(
@@ -72,7 +76,7 @@ Widget getRichText(
     } else {
       texts.add(TextSpan(text: element, style: textStyle));
     }
-  });
+  }
 
   return RichText(
       textAlign: alignment,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
@@ -40,7 +42,8 @@ class DesktopAppBar extends StatelessWidget {
                             child: NavLink(
                                 text: e,
                                 onClick: () {
-                                  print('Clicked');
+                                  log('clicked');
+                                  //print('Clicked');
                                 },
                                 style:
                                     Theme.of(context).textTheme.displayLarge),
@@ -49,7 +52,7 @@ class DesktopAppBar extends StatelessWidget {
                     NavLink(
                         text: navMenuItems.last,
                         onClick: () {
-                          print('Clicked');
+                          log('Clicked');
                         },
                         style: Theme.of(context).textTheme.displayLarge),
                   ],

@@ -20,6 +20,14 @@ final Map<String, String> enUS = {
   'heroTagline': 'Everything you need to know about after immigration',
   'postsTitle': 'Posts',
   'jobsTitle': 'Jobs',
+  'eventsTitle': 'Events',
+  'viewMore': 'View more',
+  'viewDetails': 'View Details',
+  'registerTitle': 'Start your international journey now',
+  'registerDescription':
+      'It is a long established fact that a reader will be distracted by the readable content of a page looking.',
+  'accomodationsTitle': 'Accomodations',
+      
 };
 
 final Map<String, String> heIN = {'greeting': 'Namaste', 'day': "Sukhad Din"};
