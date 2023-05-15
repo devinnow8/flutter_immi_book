@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:theimmibook/utils/consts.dart';
@@ -29,10 +30,12 @@ class DesktopAppBar extends StatelessWidget {
             leadingWidth: 0,
             automaticallyImplyLeading: false,
             title: Container(
-                constraints: BoxConstraints(
-                  maxWidth: (getScreenWidth(context: context) -
-                      designHorizontalPadding * 2),
-                ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: max(
+                        (getScreenWidth(context: context) -
+                                getMaxWidth(context)) /
+                            2,
+                        40)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -42,7 +45,7 @@ class DesktopAppBar extends StatelessWidget {
                             child: NavLink(
                                 text: e,
                                 onClick: () {
-                                  log('clicked');
+                                  // log('clicked');
                                   //print('Clicked');
                                 },
                                 style:
@@ -52,7 +55,7 @@ class DesktopAppBar extends StatelessWidget {
                     NavLink(
                         text: navMenuItems.last,
                         onClick: () {
-                          log('Clicked');
+                          // log('Clicked');
                         },
                         style: Theme.of(context).textTheme.displayLarge),
                   ],

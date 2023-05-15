@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/screens/home_screen/widgets/Faq.dart';
@@ -45,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+              padding: EdgeInsets.fromLTRB(0, 0, scrollbarThickness, 0),
               child: Column(
                 children: [
                   SizedBox(
@@ -55,13 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           Image.asset(
                             'hero.png',
-                            height: getScreenHeight(context: context) + 100,
+                            height: min(
+                                getScreenHeight(context: context) + 100, 1000),
                             fit: BoxFit.cover,
                             width: getScreenWidth(context: context),
                           ),
                           Container(
                             width: getScreenWidth(context: context),
-                            height: getScreenHeight(context: context) + 100,
+                            height: min(
+                                getScreenHeight(context: context) + 100, 1000),
                             color: const Color.fromRGBO(0, 0, 0, .74),
                           ),
                           Column(
@@ -71,122 +75,143 @@ class _MyHomePageState extends State<MyHomePage> {
                                       const EdgeInsets.symmetric(vertical: 60),
                                   child: const MyAppBar()),
                               SizedBox(
-                                height: 500,
+                                height: min(
+                                    450 *
+                                        max(textScaleF2F(context: context),
+                                            0.8),
+                                    500),
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    divider(),
+                                    divider(context),
                                     SizedBox(
-                                      width: 1100,
+                                      width:
+                                          1100 * textScaleF2F(context: context),
                                       child: Text(
                                         'heroTagline'.tr,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge,
                                         textScaleFactor:
+                                           max(
                                             textScaleF2F(context: context),
+                                            0.45),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    divider(),
+                                    divider(context),
                                   ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 110,
+                              SizedBox(
+                                height: max(
+                                    110, 110 * textScaleF2F(context: context)),
                               ),
-                              Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(26),
-                                    child: Image.network(
-                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrPqV53Ztw855ECIqr_bKBwiKg9oz2-xoWIGPt8bS4Bg&usqp=CAU&ec=48600112',
-                                      fit: BoxFit.fill,
-                                      width: desktopSubSectionWidth,
-                                      height: 272,
+                              Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 56,
+                                    horizontal:
+                                        100 * textScaleF2F(context: context)),
+                                width: getSubsectionWidth(context),
+                                decoration: BoxDecoration(
+                                    image: const DecorationImage(
+                                      image: NetworkImage(
+                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrPqV53Ztw855ECIqr_bKBwiKg9oz2-xoWIGPt8bS4Bg&usqp=CAU&ec=48600112',
+                                      ),
+                                      fit: BoxFit.cover,
+                                      colorFilter: ColorFilter.mode(
+                                          Color.fromRGBO(0, 0, 0, 0.7),
+                                          BlendMode.darken),
                                     ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 56, horizontal: 100),
-                                    width: desktopSubSectionWidth,
-                                    height: 272,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(26),
-                                        color: const Color.fromRGBO(
-                                            0, 0, 0, 0.74)),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
+                                    borderRadius: BorderRadius.circular(26),
+                                    color: const Color.fromRGBO(0, 0, 0, 0.74)),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxWidth:
+                                            getScreenWidth(context: context),
+                                        maxHeight:
+                                            getScreenWidth(context: context) <
+                                                    850
+                                                ? 100
+                                                : 50,
+                                      ),
+                                      child: Flex(
+                                        direction:
+                                            getScreenWidth(context: context) <
+                                                    850
+                                                ? Axis.vertical
+                                                : Axis.horizontal,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              constraints: const BoxConstraints(
+                                                  minWidth: 350),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: Colors.white,
+                                              ),
+                                              child: const Text('data'),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 54,
+                                            height: 20,
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              constraints: const BoxConstraints(
+                                                  minWidth: 350),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: Colors.white,
+                                              ),
+                                              child: const Text('data'),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    Wrap(
+                                      direction: Axis.horizontal,
+                                      spacing: 30,
+                                      runSpacing: 20,
                                       children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: Colors.white,
-                                                ),
-                                                child: const Text('data'),
-                                              ),
+                                        ...searchmenuItems.map(
+                                          (e) => Container(
+                                            alignment: Alignment.center,
+                                            width: 150,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 15),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: Colors.white),
                                             ),
-                                            const SizedBox(
-                                              width: 54,
+                                            child: Text(
+                                              e,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
                                             ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: Colors.white,
-                                                ),
-                                                child: const Text('data'),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 50,
-                                        ),
-                                        Expanded(
-                                          child: Wrap(
-                                            spacing: 30,
-                                            runSpacing: 20,
-                                            children: [
-                                              ...searchmenuItems.map(
-                                                (e) => Container(
-                                                  alignment: Alignment.center,
-                                                  width: 150,
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 15),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    border: Border.all(
-                                                        color: Colors.white),
-                                                  ),
-                                                  child: Text(
-                                                    e,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
                                           ),
                                         )
                                       ],
-                                    ),
-                                  ),
-                                ],
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -277,20 +302,20 @@ Widget sectionCard(double maxWidth) {
 }
 
 
-Widget divider() {
-  return const Row(
+Widget divider(context) {
+  return Row(
     children: [
       SizedBox(
-        width: 100,
+        width: min(100, 100 * textScaleF2F(context: context)),
       ),
-      Expanded(
+      const Expanded(
         child: Divider(
           height: 4,
           color: Color.fromARGB(128, 255, 255, 255),
         ),
       ),
       SizedBox(
-        width: 100,
+        width: min(100, 100 * textScaleF2F(context: context)),
       ),
     ],
   );

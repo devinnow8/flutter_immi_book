@@ -5,12 +5,14 @@ class NavLink extends StatefulWidget {
   final String text;
   final TextStyle? style;
   final dynamic onClick;
+  final double textScaleFactor;
   final List options;
   const NavLink(
       {super.key,
       required this.text,
       required this.onClick,
       required this.style,
+      this.textScaleFactor = 1,
       this.options = const []});
 
   @override
@@ -41,7 +43,9 @@ class _NavLinkState extends State<NavLink> {
                     .merge(const TextStyle(
                     fontWeight: FontWeight.w600, color: accentColor))
                 : widget.style,
-          )),
+          textScaleFactor: widget.textScaleFactor,
+        ),
+      ),
     );
   }
 }
