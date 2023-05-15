@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
+      debugShowCheckedModeBanner: false,
         title: 'The ImmiBook',
         translationsKeys: AppTranslation.translationsKeys,
         fallbackLocale: const Locale(
