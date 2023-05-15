@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
+import 'package:theimmibook/utils/ui_utilities.dart';
 
 class Posts extends StatefulWidget {
   const Posts({super.key});
@@ -33,9 +34,7 @@ class _PostsState extends State<Posts> {
           children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: smallLargeScreen
-                      ? desktopSubSectionWidth * 0.75
-                      : desktopSubSectionWidth - 80),
+                  maxWidth: getSubsectionWidth(context)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -62,15 +61,14 @@ class _PostsState extends State<Posts> {
             ),
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: smallLargeScreen
-                      ? designScreenWidth
-                      : constraints.maxWidth - 80),
+                  maxWidth: getMaxWidth(context) - 80),
               child: Container(
                 child: Row(
                     mainAxisAlignment: mediumLargeScreen || smallLargeScreen
                         ? MainAxisAlignment.spaceEvenly
                         : MainAxisAlignment.spaceBetween,
                     children: [
+                      if (getScreenWidth(context: context) > 786)
                       InkWell(
                           focusColor: Colors.transparent,
                           overlayColor: MaterialStateColor.resolveWith(
@@ -98,9 +96,15 @@ class _PostsState extends State<Posts> {
                             ],
                             carouselController: _carousalController,
                             options: CarouselOptions(
-                              height: 509,
+                              height: (getScreenWidth(context: context) > 830)
+                                  ? 509
+                                  : 585,
                               aspectRatio: 0.79,
-                              viewportFraction: smallLargeScreen ? 0.5 : 0.33,
+                              viewportFraction: smallLargeScreen
+                                  ? (getScreenWidth(context: context) < 800
+                                      ? 1
+                                      : 0.5)
+                                  : 0.33,
                               initialPage: 0,
                               enableInfiniteScroll: false,
                               reverse: false,
@@ -116,6 +120,7 @@ class _PostsState extends State<Posts> {
                               scrollDirection: Axis.horizontal,
                             )),
                       ),
+                      if (getScreenWidth(context: context) > 786)
                       InkWell(
                         focusColor: Colors.transparent,
                         overlayColor: MaterialStateColor.resolveWith(
@@ -153,7 +158,7 @@ Widget postCard() {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 350),
           width: double.maxFinite,
-          height: 509,
+        
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.white38),
           child: Column(
