@@ -41,7 +41,7 @@ class _NavLinkState extends State<NavLink> {
             style: hover == true
                 ? widget.style!
                     .merge(const TextStyle(
-                    fontWeight: FontWeight.w600, color: accentColor))
+                  fontWeight: FontWeight.w600, color: highlightColor))
                 : widget.style,
           textScaleFactor: widget.textScaleFactor,
         ),

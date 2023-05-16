@@ -30,7 +30,16 @@ class _FaqState extends State<Faq> {
         log(constraints.maxWidth.toString());
         return Container(
           width: getScreenWidth(context: context),
-          color: const Color.fromRGBO(20, 20, 20, 1),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                gradientPrimaryColor,
+                gradientSecondaryColor,
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
           child: Column(
             children: [
               const SizedBox(
@@ -81,7 +90,7 @@ class _FaqState extends State<Faq> {
                                 children: [
                                   Text(
                                     'viewMore'.tr,
-                                    style: const TextStyle(color: accentColor),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -107,90 +116,86 @@ Widget faqTile() {
   String answer = faqTilesData[0]['answer'];
   bool expanded = false;
 
-  return LayoutBuilder(
-    builder: (buildContext, constraints) =>
-        StatefulBuilder(builder: (context, setState) {
-      log('----->>>>${constraints.maxWidth}');
+  return StatefulBuilder(builder: (context, setState) {
+  
       return MouseRegion(
-          cursor: MaterialStateMouseCursor.clickable,
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                expanded = !expanded;
-              });
-            },
-            behavior: HitTestBehavior.translucent,
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      (expanded)
-                          ? const Icon(
-                              Icons.remove_circle_outline_sharp,
-                              color: accentColor,
-                              size: 33,
-                            )
-                          : const Icon(
-                              Icons.add_circle_outline_sharp,
-                              color: accentColor,
-                              size: 33,
-                            ),
-                      const SizedBox(
-                        width: 25,
-                      ),
-                      Expanded(
-                        child: Text(
-                          question,
-                          style: const TextStyle(fontSize: 45),
-                        ),
-                      )
-                    ],
-                  ),
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return SizeTransition(
-                          sizeFactor: animation, child: child);
-                    },
-                    child: (expanded)
-                        ? Row(
-                            children: [
-                              const SizedBox(
-                                width: 62,
-                              ),
-                              ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 1000),
-                                  child: Expanded(
-                                    child: Text(
-                                      answer,
-                                      style: const TextStyle(fontSize: 30),
-                                    ),
-                                  )),
-                            ],
+        cursor: MaterialStateMouseCursor.clickable,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              expanded = !expanded;
+            });
+          },
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    (expanded)
+                        ? const Icon(
+                            Icons.remove_circle_outline_sharp,
+                            color: Colors.white,
+                            size: 33,
                           )
-                        : const SizedBox(),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Divider(
-                    height: 3,
-                    thickness: 0.7,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  )
-                ],
-              ),
+                        : const Icon(
+                            Icons.add_circle_outline_sharp,
+                            color: Colors.white,
+                            size: 33,
+                          ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    Expanded(
+                      child: Text(
+                        question,
+                        style: const TextStyle(fontSize: 45),
+                      ),
+                    )
+                  ],
+                ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return SizeTransition(sizeFactor: animation, child: child);
+                  },
+                  child: (expanded)
+                      ? Row(
+                          children: [
+                            const SizedBox(
+                              width: 62,
+                            ),
+                            ConstrainedBox(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 1000),
+                                child: Expanded(
+                                  child: Text(
+                                    answer,
+                                    style: const TextStyle(fontSize: 30),
+                                  ),
+                                )),
+                          ],
+                        )
+                      : const SizedBox(),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                const Divider(
+                  height: 3,
+                  thickness: 0.7,
+                  color: Colors.white,
+                ),
+                const SizedBox(
+                  height: 40,
+                )
+              ],
             ),
-          ));
-    }),
-  );
+          ),
+        ));
+  });
 }
 
 List faqTilesData = [

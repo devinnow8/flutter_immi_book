@@ -33,7 +33,7 @@ class DesktopAppBar extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: max(
                         (getScreenWidth(context: context) -
-                                getMaxWidth(context)) /
+                                getMaxSectionWidth(context)) /
                             2,
                         40)),
                 child: Row(
@@ -49,7 +49,10 @@ class DesktopAppBar extends StatelessWidget {
                                   //print('Clicked');
                                 },
                                 style:
-                                    Theme.of(context).textTheme.displayLarge),
+                                    Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .merge(TextStyle(fontSize: 40))),
                           ),
                         ),
                     NavLink(
@@ -57,7 +60,10 @@ class DesktopAppBar extends StatelessWidget {
                         onClick: () {
                           // log('Clicked');
                         },
-                        style: Theme.of(context).textTheme.displayLarge),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .merge(TextStyle(fontSize: 40))),
                   ],
                 )),
             elevation: 0,

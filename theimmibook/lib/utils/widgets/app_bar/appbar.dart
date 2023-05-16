@@ -14,9 +14,7 @@ class MyAppBar extends StatelessWidget {
         if (constraints.maxWidth > 1280) {
           return const DesktopAppBar();
         }
-      else if (constraints.maxWidth > mobileWidth
-
-      )
+      else if (constraints.maxWidth > mobileWidth)
       {
           return const TabletAppBar();
         } else {

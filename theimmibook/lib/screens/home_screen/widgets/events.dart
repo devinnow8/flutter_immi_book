@@ -30,34 +30,27 @@ class _EventsState extends State<Events> {
         return Container(
           width: getScreenWidth(context: context),
           alignment: Alignment.center,
-          color: Colors.black,
+          color: bodyBgSecondaryColor,
           child: Column(
             children: [
               const SizedBox(
                 height: 60,
               ),
               ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? desktopSubSectionWidth * 0.75
-                        : desktopSubSectionWidth),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'eventsTitle'.tr,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w800, fontSize: 60),
-                    ),
-                    Text(
+                constraints:
+                    BoxConstraints(maxWidth: getSubsectionWidth(context)),
+                child: getHeadingAndOptions(
+                    context: context,
+                    title: 'eventsTitle'.tr,
+                    options: Text(
                       'viewMore'.tr,
-                      style: const TextStyle(color: accentColor),
-                    ),
-                  ],
+                      style: sectionHeadingOptionsStyle,
+                    )
                 ),
               ),
+            
               const SizedBox(
-                height: 60,
+                height: 30,
               ),
               ConstrainedBox(
                 constraints: BoxConstraints(
@@ -181,7 +174,7 @@ Widget eventCard(int i) {
                                   children: [
                                     const Icon(
                                       Icons.av_timer_sharp,
-                                      color: accentColor,
+                                      color: highlightColor,
                                     ),
                                     const SizedBox(
                                       width: 5,
@@ -194,7 +187,7 @@ Widget eventCard(int i) {
                                   const Icon(
                                     Icons.arrow_right_alt_outlined,
                                     size: 45,
-                                    color: accentColor,
+                                    color: highlightColor,
                                   ),
                               ],
                             ),

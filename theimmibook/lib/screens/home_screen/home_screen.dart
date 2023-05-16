@@ -6,6 +6,7 @@ import 'package:theimmibook/screens/home_screen/widgets/Faq.dart';
 import 'package:theimmibook/screens/home_screen/widgets/about_us.dart.dart';
 import 'package:theimmibook/screens/home_screen/widgets/accomodations.dart';
 import 'package:theimmibook/screens/home_screen/widgets/events.dart';
+import 'package:theimmibook/screens/home_screen/widgets/header.dart';
 import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
 import 'package:theimmibook/screens/home_screen/widgets/posts.dart';
 import 'package:theimmibook/screens/home_screen/widgets/register.dart';
@@ -48,204 +49,38 @@ class _MyHomePageState extends State<MyHomePage> {
             controller: _scrollController,
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 0, scrollbarThickness, 0),
-              child: Column(
+              child: const Column(
                 children: [
+                  Header(),
                   SizedBox(
-                      width: getScreenWidth(context: context),
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Image.asset(
-                            'hero.png',
-                            height: min(
-                                getScreenHeight(context: context) + 100, 1000),
-                            fit: BoxFit.cover,
-                            width: getScreenWidth(context: context),
-                          ),
-                          Container(
-                            width: getScreenWidth(context: context),
-                            height: min(
-                                getScreenHeight(context: context) + 100, 1000),
-                            color: const Color.fromRGBO(0, 0, 0, .74),
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 60),
-                                  child: const MyAppBar()),
-                              SizedBox(
-                                height: min(
-                                    450 *
-                                        max(textScaleF2F(context: context),
-                                            0.8),
-                                    500),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    divider(context),
-                                    SizedBox(
-                                      width:
-                                          1100 * textScaleF2F(context: context),
-                                      child: Text(
-                                        'heroTagline'.tr,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        textScaleFactor:
-                                           max(
-                                            textScaleF2F(context: context),
-                                            0.45),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    divider(context),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: max(
-                                    110, 110 * textScaleF2F(context: context)),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 56,
-                                    horizontal:
-                                        100 * textScaleF2F(context: context)),
-                                width: getSubsectionWidth(context),
-                                decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                      image: NetworkImage(
-                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrPqV53Ztw855ECIqr_bKBwiKg9oz2-xoWIGPt8bS4Bg&usqp=CAU&ec=48600112',
-                                      ),
-                                      fit: BoxFit.cover,
-                                      colorFilter: ColorFilter.mode(
-                                          Color.fromRGBO(0, 0, 0, 0.7),
-                                          BlendMode.darken),
-                                    ),
-                                    borderRadius: BorderRadius.circular(26),
-                                    color: const Color.fromRGBO(0, 0, 0, 0.74)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        maxWidth:
-                                            getScreenWidth(context: context),
-                                        maxHeight:
-                                            getScreenWidth(context: context) <
-                                                    850
-                                                ? 100
-                                                : 50,
-                                      ),
-                                      child: Flex(
-                                        direction:
-                                            getScreenWidth(context: context) <
-                                                    850
-                                                ? Axis.vertical
-                                                : Axis.horizontal,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: Container(
-                                              constraints: const BoxConstraints(
-                                                  minWidth: 350),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                color: Colors.white,
-                                              ),
-                                              child: const Text('data'),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 54,
-                                            height: 20,
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Container(
-                                              constraints: const BoxConstraints(
-                                                  minWidth: 350),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                color: Colors.white,
-                                              ),
-                                              child: const Text('data'),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 50,
-                                    ),
-                                    Wrap(
-                                      direction: Axis.horizontal,
-                                      spacing: 30,
-                                      runSpacing: 20,
-                                      children: [
-                                        ...searchmenuItems.map(
-                                          (e) => Container(
-                                            alignment: Alignment.center,
-                                            width: 150,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 15),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                  color: Colors.white),
-                                            ),
-                                            child: Text(
-                                              e,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      )),
-                  const SizedBox(
                     height: 160,
                   ),
-                  const Posts(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Events(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Jobs(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Register(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Accomodations(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const AboutUs(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Faq(),
-                  const Footer()
+                  // Posts(),
+                  // SizedBox(
+                  //   height: 140,
+                  // ),
+                  // Events(),
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  // Jobs(),
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  // Register(),
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  // Accomodations(),
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  // AboutUs(),
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  // Faq(),
+                  // Footer()
                 ],
               ),
             ),
@@ -311,6 +146,7 @@ Widget divider(context) {
       const Expanded(
         child: Divider(
           height: 4,
+          thickness: 3,
           color: Color.fromARGB(128, 255, 255, 255),
         ),
       ),

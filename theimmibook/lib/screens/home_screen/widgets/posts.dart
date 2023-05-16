@@ -18,138 +18,117 @@ class _PostsState extends State<Posts> {
   final CarouselController _carousalController = CarouselController();
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (buildContext, constraints) {
-        bool isMobile = constraints.maxWidth <= mobileWidth;
-        bool mediumLargeScreen = false;
-        bool smallLargeScreen = false;
-        if (constraints.maxWidth <= 1360) {
-          smallLargeScreen = true;
-        } else if (constraints.maxWidth <= 1700) {
-          mediumLargeScreen = true;
-        }
-
-        log(constraints.maxWidth.toString());
-        return Column(
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: getSubsectionWidth(context)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'postsTitle'.tr,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 60),
-                  ),
-                  const CircleAvatar(
-                    radius: 35,
-                    backgroundColor: accentColor,
-                    child: Icon(
-                      Icons.add,
-                      size: 40,
-                    ),
-                  ),
-                ],
+    return Column(
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: getSubsectionWidth(context)),
+          child: getHeadingAndOptions(
+            context: context,
+            title: 'postsTitle'.tr,
+            options: CircleAvatar(
+              radius: getScreenWidth(context: context) < 1000 ? 25 : 35,
+              backgroundColor: gradientPrimaryColor,
+              child: Icon(
+                Icons.add,
+                size: getScreenWidth(context: context) < 1000 ? 30 : 40,
               ),
             ),
-            const SizedBox(
-              height: 60,
-            ),
+          ),
+        ),
+        const SizedBox(
+          height: 60,
+        ),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: getMaxNetWidth(context)),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            if (getScreenWidth(context: context) > 786)
+              getNavArrow(
+                onTap: () {
+                  _carousalController.previousPage(
+                      duration: const Duration(milliseconds: 700));
+                },
+              ),
             ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: getMaxWidth(context) - 80),
-              child: Container(
-                child: Row(
-                    mainAxisAlignment: mediumLargeScreen || smallLargeScreen
-                        ? MainAxisAlignment.spaceEvenly
-                        : MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (getScreenWidth(context: context) > 786)
-                      InkWell(
-                          focusColor: Colors.transparent,
-                          overlayColor: MaterialStateColor.resolveWith(
-                              (states) => Colors.transparent),
-                          splashColor: Colors.transparent,
-                          splashFactory: NoSplash.splashFactory,
-                          onTap: () {
-                            _carousalController.previousPage(
-                                duration: const Duration(milliseconds: 700));
-                          },
-                          child: SvgPicture.asset('navArrow.svg')),
-                      ConstrainedBox(
-                        constraints: BoxConstraints(
-                            maxWidth: mediumLargeScreen
-                                ? desktopSubSectionWidth * .75
-                                : (smallLargeScreen
-                                    ? constraints.maxWidth * 0.7
-                                    : desktopSubSectionWidth)),
-                        child: CarouselSlider(
-                            items: [
-                              ...postCardsData.map((e) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: postCard()))
-                            ],
-                            carouselController: _carousalController,
-                            options: CarouselOptions(
-                              height: (getScreenWidth(context: context) > 830)
-                                  ? 509
-                                  : 585,
-                              aspectRatio: 0.79,
-                              viewportFraction: smallLargeScreen
-                                  ? (getScreenWidth(context: context) < 800
-                                      ? 1
-                                      : 0.5)
-                                  : 0.33,
-                              initialPage: 0,
-                              enableInfiniteScroll: false,
-                              reverse: false,
-                              autoPlay: false,
-                              autoPlayInterval: const Duration(seconds: 3),
-                              autoPlayAnimationDuration:
-                                  const Duration(milliseconds: 1200),
-                              autoPlayCurve: Curves.linear,
-                              enlargeCenterPage: false,
-                              padEnds: false,
-                              enlargeFactor: 0,
-                              onPageChanged: (p1, p2) {},
-                              scrollDirection: Axis.horizontal,
-                            )),
-                      ),
-                      if (getScreenWidth(context: context) > 786)
-                      InkWell(
-                        focusColor: Colors.transparent,
-                        overlayColor: MaterialStateColor.resolveWith(
-                            (states) => Colors.transparent),
-                        splashColor: Colors.transparent,
-                        splashFactory: NoSplash.splashFactory,
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context) + 30),
+              child: CarouselSlider(
+                  items: [
+                    ...postCardsData.map((e) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: postCard()))
+                  ],
+                  carouselController: _carousalController,
+                  options: CarouselOptions(
+                    height: 553,
+                    aspectRatio: 0.65,
+                    viewportFraction: 0.33,
+                    initialPage: 0,
+                    enableInfiniteScroll: false,
+                    reverse: false,
+                    autoPlay: false,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 1200),
+                    autoPlayCurve: Curves.linear,
+                    enlargeCenterPage: false,
+                    padEnds: false,
+                    enlargeFactor: 0,
+                    onPageChanged: (p1, p2) {},
+                    scrollDirection: Axis.horizontal,
+                  )),
+            ),
+            if (getScreenWidth(context: context) > 786)
+              getNavArrow(
                         onTap: () {
                           _carousalController.nextPage(
                               duration: const Duration(milliseconds: 700));
                         },
-                        child: RotatedBox(
-                            quarterTurns: 2,
-                            child: SvgPicture.asset('navArrow.svg')),
-                      )
-                    ]),
-              ),
-            )
-          ],
-        );
-      },
+                  right: true)
+          ]),
+          
+        )
+      ],
     );
   }
 }
+
+Widget getNavArrow({bool right = false, required onTap}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 60),
+    child: InkWell(
+      focusColor: Colors.transparent,
+      overlayColor:
+          MaterialStateColor.resolveWith((states) => Colors.transparent),
+      splashColor: Colors.transparent,
+      splashFactory: NoSplash.splashFactory,
+      onTap: onTap,
+      child: RotatedBox(
+          quarterTurns: right ? 2 : 0,
+          child: Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              const CircleAvatar(
+                backgroundColor: bodyBgSecondaryColor,
+                radius: 52,
+              ),
+              SvgPicture.asset(
+                'arrowLeft.svg',
+                width: 58,
+                fit: BoxFit.fitWidth,
+              ),
+            ],
+          )),
+    ),
+  );
+}
+
 
 Widget postCard() {
   String title = postCardsData[0]['title'];
   String subTitle = postCardsData[0]['subTitle'];
   String description = postCardsData[0]['description'];
   String imageUrl = postCardsData[0]['imageUrl'];
+
   return StatefulBuilder(builder: (context, setState) {
     return MouseRegion(
       cursor: MaterialStateMouseCursor.clickable,
@@ -158,11 +137,12 @@ Widget postCard() {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 350),
           width: double.maxFinite,
-        
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.white38),
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.network(
                 imageUrl,
@@ -170,25 +150,37 @@ Widget postCard() {
                 fit: BoxFit.fitWidth,
               ),
               Expanded(
-                  child: Container(
-                color: const Color.fromARGB(255, 0, 0, 0),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(fontSize: 25),
-                    ),
-                    Text(subTitle,
-                        style:
-                            const TextStyle(fontSize: 20, color: accentColor)),
-                    Text(description, style: const TextStyle(fontSize: 16))
-                  ],
+                child: Container(
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: cardTitleStyle,
+                      ),
+                      Text(subTitle, style: cardSubTitleStyle),
+                      Text(description, style: descriptionTextStyle),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.account_circle),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Text('D. Smith',
+                              style: descriptionTextStyle
+                                  .merge(const TextStyle(fontSize: 14))),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ))
+              )
             ],
           ),
         ),

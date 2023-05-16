@@ -17,6 +17,9 @@ double getScreenWidth({required context}) {
 }
 
 double widthFigma2Flutter({required double width, required context}) {
+  if (kIsWeb) {
+    return ((getScreenWidth(context: context) / designScreenWidth) * width);
+  }
   if (Platform.isIOS) {
     return ((getScreenWidth(context: context) / designScreenWidth) * width);
   }
@@ -40,6 +43,9 @@ double textSizeF2F({required double tSize, required context}) {
 
 double textScaleF2F({required context}) {
   if (kIsWeb) {
+    if (getScreenWidth(context: context) / (designScreenWidth) > 1) {
+      return 1;
+    }
     return (getScreenWidth(context: context) / (designScreenWidth));
   }
   if (Platform.isIOS) {
@@ -50,6 +56,10 @@ double textScaleF2F({required context}) {
   }
 
   return ((getScreenHeight(context: context) / (designScreenHeight)));
+}
+
+double widthScaleF2F({required context}) {
+  return (getScreenWidth(context: context) / (designScreenWidth));
 }
 
 Widget getRichText(
@@ -97,4 +107,23 @@ Future showErrorDialog({required String errorMessage, required context}) async {
       builder: (context) => CupertinoAlertDialog(
             content: Text(errorMessage),
           ));
+}
+
+
+
+
+Widget getHeadingAndOptions(
+    {required context,
+    required String title,
+    Widget options = const SizedBox()}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        title,
+        style: sectionHeadingStyle,
+      ),
+      options,
+    ],
+  );
 }

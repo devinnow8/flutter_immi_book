@@ -33,7 +33,7 @@ class TabletAppBar extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: max(
                         (getScreenWidth(context: context) -
-                                getMaxWidth(context)) /
+                                getMaxSectionWidth(context)) /
                             2,
                         40)),
                 child: Row(

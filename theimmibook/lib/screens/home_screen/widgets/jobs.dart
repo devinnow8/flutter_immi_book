@@ -34,22 +34,15 @@ class _JobsState extends State<Jobs> {
                   maxWidth: smallLargeScreen
                       ? desktopSubSectionWidth * 0.75
                       : desktopSubSectionWidth),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'jobsTitle'.tr,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 60),
-                  ),
-                  Text(
+                          
+                child: getHeadingAndOptions(
+                  context: context,
+                  title: 'jobsTitle'.tr,
+                  options: Text(
                     'viewMore'.tr,
-                    style: const TextStyle(color: accentColor),
+                    style: sectionHeadingOptionsStyle,
                   ),
-                ],
-              ),
+                )
             ),
             const SizedBox(
               height: 60,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
+
+
+//13
 
 double designScreenWidth = 1920; //figma design width
 double designScreenHeight = 11096; //figma design height
@@ -10,7 +12,7 @@ double appbarHeight = 80;
 
 double desktopWidth = 1920;
 double tabletWidth = 1280;
-double mobileWidth = 787;
+double mobileWidth = 768;
 
 double desktopSubSectionWidth = 1291;
 
@@ -27,11 +29,17 @@ const Color accentColor = Color.fromRGBO(183, 119, 234, 1);
 
 double scrollbarThickness = 15;
 
-double getMaxWidth(context) {
+double getMaxSectionWidth(context) {
   if (getScreenWidth(context: context) >= 1920) {
     return (1920 - 207 * 2 - scrollbarThickness);
   } else
+    {
     return (1920 - 207 * 2 - scrollbarThickness);
+  }
+}
+
+double getMaxNetWidth(context) {
+  return getScreenWidth(context: context) - scrollbarThickness;
 }
 
 double getSubsectionWidth(context) {
@@ -48,3 +56,38 @@ double getSubsectionWidth(context) {
   }
   return desktopSubSectionWidth * 0.98;
 }
+
+
+
+////////////////////////////// Colors//////////////////////////////
+
+// misc colors
+const Color highlightColor = Color.fromRGBO(214, 239, 55, 1);
+const Color imageMaskColor = Color.fromRGBO(19, 19, 63, 0.8);
+
+//gradient colors
+const Color gradientPrimaryColor = Color.fromRGBO(119, 119, 228, 1);
+const Color gradientSecondaryColor = Color.fromRGBO(74, 74, 204, 1);
+
+//body colors
+const Color bodyBgPrimaryColor = Colors.white;
+const Color bodyBgSecondaryColor = Color.fromRGBO(223, 223, 255, 1);
+const Color bodyBgTertiaryColor = Color.fromRGBO(10, 10, 78, 1);
+const Color bodyColorBlue = Color.fromRGBO(70, 70, 182, 1);
+
+//text colors
+const Color textColorWhite = Colors.white;
+const Color textColorBlack = Colors.black;
+const Color textColorBlue = bodyColorBlue;
+const Color textColorPurple = Color.fromRGBO(183, 119, 234, 1);
+
+const sectionHeadingStyle =
+    TextStyle(fontWeight: FontWeight.w800, fontSize: 60, color: textColorBlack);
+const sectionHeadingOptionsStyle =
+    TextStyle(fontWeight: FontWeight.w800, fontSize: 30, color: textColorBlack);
+const cardTitleStyle =
+    TextStyle(fontWeight: FontWeight.w800, fontSize: 25, color: textColorWhite);
+const cardSubTitleStyle =
+    TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: textColorWhite);
+const descriptionTextStyle =
+    TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: textColorWhite);
