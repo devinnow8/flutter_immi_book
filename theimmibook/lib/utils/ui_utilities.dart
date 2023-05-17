@@ -46,7 +46,10 @@ double textScaleF2F({required context}) {
     if (getScreenWidth(context: context) / (designScreenWidth) > 1) {
       return 1;
     }
-    return (getScreenWidth(context: context) / (designScreenWidth));
+    if (isMobile(context))
+      return (getScreenWidth(context: context) / (designScreenWidth) * 3);
+    else
+      return 1;
   }
   if (Platform.isIOS) {
     double scaleFactor =
@@ -58,7 +61,10 @@ double textScaleF2F({required context}) {
   return ((getScreenHeight(context: context) / (designScreenHeight)));
 }
 
+
+
 double widthScaleF2F({required context}) {
+  if (getScreenWidth(context: context) / (designScreenWidth) > 1) return 1;
   return (getScreenWidth(context: context) / (designScreenWidth));
 }
 
@@ -122,8 +128,12 @@ Widget getHeadingAndOptions(
       Text(
         title,
         style: sectionHeadingStyle,
+        textScaleFactor: textScaleF2F(context: context),
       ),
       options,
     ],
   );
 }
+
+
+

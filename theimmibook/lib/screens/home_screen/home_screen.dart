@@ -39,27 +39,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialStateColor.resolveWith((states) => Colors.grey)),
         child: Scrollbar(
           
-          trackVisibility: true,
-          thickness: 10,
+          trackVisibility:
+              getScreenWidth(context: context) < mobileWidth ? false : true,
+          thickness: getScreenWidth(context: context) < mobileWidth ? 2 : 10,
           
-          hoverThickness: 10,
+          hoverThickness:
+              getScreenWidth(context: context) < mobileWidth ? 3 : 10,
           controller: _scrollController,
           thumbVisibility: true,
           child: SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, scrollbarThickness, 0),
-              child: const Column(
+              padding: EdgeInsets.fromLTRB(
+                  0,
+                  0,
+                  getScreenWidth(context: context) < mobileWidth
+                      ? 0
+                      : scrollbarThickness,
+                  0),
+              child: Column(
                 children: [
-                  Header(),
+                  const Header(),
                   SizedBox(
-                    height: 160,
+                    height: isMobile(context)
+                        ? 250 * widthScaleF2F(context: context)
+                        : 160,
                   ),
-                  // Posts(),
-                  // SizedBox(
-                  //   height: 140,
-                  // ),
-                  // Events(),
+
+                  const Posts(),
+                  SizedBox(
+                    height: isMobile(context)
+                        ? 250 * widthScaleF2F(context: context)
+                        : 140,
+                  ),
+                  const Events(),
                   // SizedBox(
                   //   height: 100,
                   // ),
@@ -138,21 +151,24 @@ Widget sectionCard(double maxWidth) {
 
 
 Widget divider(context) {
-  return Row(
-    children: [
-      SizedBox(
-        width: min(100, 100 * textScaleF2F(context: context)),
-      ),
-      const Expanded(
-        child: Divider(
-          height: 4,
-          thickness: 3,
-          color: Color.fromARGB(128, 255, 255, 255),
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 1920),
+    child: Row(
+      children: [
+        SizedBox(
+          width: min(100, 100 * textScaleF2F(context: context)),
         ),
-      ),
-      SizedBox(
-        width: min(100, 100 * textScaleF2F(context: context)),
-      ),
-    ],
+        const Expanded(
+          child: Divider(
+            height: 4,
+            thickness: 3,
+            color: Color.fromARGB(128, 255, 255, 255),
+          ),
+        ),
+        SizedBox(
+          width: min(100, 100 * textScaleF2F(context: context)),
+        ),
+      ],
+    ),
   );
 }

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -20,29 +21,34 @@ class _PostsState extends State<Posts> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: getSubsectionWidth(context)),
-          child: getHeadingAndOptions(
-            context: context,
-            title: 'postsTitle'.tr,
-            options: CircleAvatar(
-              radius: getScreenWidth(context: context) < 1000 ? 25 : 35,
-              backgroundColor: gradientPrimaryColor,
-              child: Icon(
-                Icons.add,
-                size: getScreenWidth(context: context) < 1000 ? 30 : 40,
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
+          child: Container(
+            constraints: BoxConstraints(maxWidth: getSubsectionWidth(context)),
+          
+            child: getHeadingAndOptions(
+              context: context,
+              title: 'postsTitle'.tr,
+              options: CircleAvatar(
+                radius: min(35 * widthScaleF2F(context: context) * 3, 35),
+                backgroundColor: gradientPrimaryColor,
+                child: Icon(Icons.add,
+                    size: min(40 * widthScaleF2F(context: context) * 3, 40)),
               ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 60,
+        SizedBox(
+          height:
+              isMobile(context) ? 100 * widthScaleF2F(context: context) : 60,
         ),
         ConstrainedBox(
           constraints: BoxConstraints(maxWidth: getMaxNetWidth(context)),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            if (getScreenWidth(context: context) > 786)
-              getNavArrow(
+         
+            getNavArrow(
+              context: context,
                 onTap: () {
                   _carousalController.previousPage(
                       duration: const Duration(milliseconds: 700));
@@ -50,7 +56,15 @@ class _PostsState extends State<Posts> {
               ),
             ConstrainedBox(
               constraints:
-                  BoxConstraints(maxWidth: getSubsectionWidth(context) + 30),
+                  BoxConstraints(
+                  maxWidth: isMobile(context)
+                      ? (getSubsectionWidth(context) *
+                              widthScaleF2F(context: context) +
+                          10)
+                      : (getSubsectionWidth(context) *
+                              widthScaleF2F(context: context)) +
+                          150 -
+                          140 * widthScaleF2F(context: context)),
               child: CarouselSlider(
                   items: [
                     ...postCardsData.map((e) => Padding(
@@ -59,9 +73,20 @@ class _PostsState extends State<Posts> {
                   ],
                   carouselController: _carousalController,
                   options: CarouselOptions(
-                    height: 553,
-                    aspectRatio: 0.65,
-                    viewportFraction: 0.33,
+                    
+                    aspectRatio: getScreenWidth(context: context) < mobileWidth
+                        ? (getSubsectionWidth(context) /
+                                    getScreenWidth(context: context)) *
+                                widthScaleF2F(context: context) +
+                            0.15
+                        : getScreenWidth(context: context) < 900
+                            ? 1.8 * widthScaleF2F(context: context)
+                            : (getScreenWidth(context: context) < 1100
+                                ? .9
+                                : (2.28 * widthScaleF2F(context: context))),
+                    viewportFraction: (getScreenWidth(context: context) < 1700)
+                        ? (getScreenWidth(context: context) < 1100 ? 1 : 0.5)
+                        : 0.33,
                     initialPage: 0,
                     enableInfiniteScroll: false,
                     reverse: false,
@@ -77,24 +102,26 @@ class _PostsState extends State<Posts> {
                     scrollDirection: Axis.horizontal,
                   )),
             ),
-            if (getScreenWidth(context: context) > 786)
-              getNavArrow(
-                        onTap: () {
-                          _carousalController.nextPage(
-                              duration: const Duration(milliseconds: 700));
-                        },
+          
+            getNavArrow(
+                context: context,
+                onTap: () {
+                  _carousalController.nextPage(
+                      duration: const Duration(milliseconds: 700));
+                },
                   right: true)
           ]),
-          
         )
       ],
     );
   }
 }
 
-Widget getNavArrow({bool right = false, required onTap}) {
+Widget getNavArrow({bool right = false, required onTap, required context}) {
   return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 60),
+    margin: EdgeInsets.symmetric(
+        horizontal:
+            (isMobile(context) ? 0 : 30) * widthScaleF2F(context: context)),
     child: InkWell(
       focusColor: Colors.transparent,
       overlayColor:
@@ -107,13 +134,17 @@ Widget getNavArrow({bool right = false, required onTap}) {
           child: Stack(
             alignment: Alignment.centerRight,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 backgroundColor: bodyBgSecondaryColor,
-                radius: 52,
+                radius: getScreenWidth(context: context) > 1000
+                    ? 52
+                    : 52 * widthScaleF2F(context: context) * 1.8,
               ),
               SvgPicture.asset(
                 'arrowLeft.svg',
-                width: 58,
+                width: getScreenWidth(context: context) > 1000
+                    ? 58
+                    : 58 * widthScaleF2F(context: context) * 1.8,
                 fit: BoxFit.fitWidth,
               ),
             ],
@@ -153,7 +184,8 @@ Widget postCard() {
                 child: Container(
                   color: const Color.fromARGB(255, 0, 0, 0),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
+                       EdgeInsets.symmetric(
+                      horizontal: isMobile(context) ? 25 : 37, vertical: 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
@@ -162,19 +194,35 @@ Widget postCard() {
                       Text(
                         title,
                         style: cardTitleStyle,
+                        textScaleFactor: textScaleF2F(context: context),
                       ),
-                      Text(subTitle, style: cardSubTitleStyle),
-                      Text(description, style: descriptionTextStyle),
+                      Text(
+                        subTitle,
+                        style: cardSubTitleStyle,
+                        textScaleFactor: textScaleF2F(context: context),
+                      ),
+                      Text(
+                        description,
+                        style: descriptionTextStyle,
+                        textScaleFactor: textScaleF2F(context: context),
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.account_circle),
-                          const SizedBox(
-                            width: 15,
+                          Icon(
+                            Icons.account_circle,
+                            size: 15 * textScaleF2F(context: context),
+                          ),
+                          SizedBox(
+                            width: 15 * widthScaleF2F(context: context),
                           ),
                           Text('D. Smith',
                               style: descriptionTextStyle
-                                  .merge(const TextStyle(fontSize: 14))),
+                                  .merge(
+                              const TextStyle(fontSize: 14),
+                            ),
+                            textScaleFactor: textScaleF2F(context: context),
+                          ),
                         ],
                       )
                     ],

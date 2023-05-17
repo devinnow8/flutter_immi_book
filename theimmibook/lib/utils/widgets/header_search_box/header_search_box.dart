@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theimmibook/utils/consts.dart';
@@ -16,14 +18,19 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
   Widget build(context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(
-          vertical: 56, horizontal: 100 * widthScaleF2F(context: context)),
+      padding: getScreenWidth(context: context) > mobileWidth
+          ? EdgeInsets.symmetric(
+              vertical: 56, horizontal: 100 * widthScaleF2F(context: context))
+          : EdgeInsets.fromLTRB(getHorizontalPadding(context), 0,
+              getHorizontalPadding(context), 0),
       width: getSubsectionWidth(context) - 160,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-            colors: [gradientPrimaryColor, gradientSecondaryColor],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight),
+        gradient: getScreenWidth(context: context) > mobileWidth
+            ? const LinearGradient(
+                colors: [gradientPrimaryColor, gradientSecondaryColor],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight)
+            : null,
         borderRadius: BorderRadius.circular(26),
       ),
       child: Column(
@@ -32,10 +39,10 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
           ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: getScreenWidth(context: context),
-              maxHeight: getScreenWidth(context: context) < 850 ? 100 : 50,
+              maxHeight: 150,
             ),
             child: Flex(
-              direction: getScreenWidth(context: context) < 850
+              direction: getScreenWidth(context: context) < 1000
                   ? Axis.vertical
                   : Axis.horizontal,
               children: [
@@ -156,12 +163,13 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
                 Expanded(
                   flex: 1,
                   child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
                     height: 55,
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     constraints: const BoxConstraints(minWidth: 350),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                 
                     ),
                     child: TextField(
                       style: const TextStyle(color: Colors.black, fontSize: 17),
@@ -209,7 +217,7 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
                   )
                 ],
               ),
-            )
+            ),
         ],
       ),
     );

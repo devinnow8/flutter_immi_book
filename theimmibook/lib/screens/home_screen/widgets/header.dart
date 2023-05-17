@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: getScreenWidth(context: context),
+        width: getMaxNetWidth(context),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -34,41 +34,63 @@ class Header extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                          margin: const EdgeInsets.symmetric(vertical: 60),
+                          margin: EdgeInsets.symmetric(
+                              vertical: max(
+                                  60 * widthScaleF2F(context: context), 20)),
                           child: const MyAppBar()),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          if (getScreenWidth(context: context) > mobileWidth)
                           divider(context),
-                          const SizedBox(
-                            height: 160,
+                          SizedBox(
+                            height: 160 * widthScaleF2F(context: context),
                           ),
                           SizedBox(
-                            width: 1100 * textScaleF2F(context: context),
+                            width: (isMobile(context)
+                                ? 1100 * widthScaleF2F(context: context)
+                                : 1100 * widthScaleF2F(context: context)),
                             child: Text(
                               'heroTagline'.tr,
                               style: Theme.of(context).textTheme.bodyLarge,
-                              textScaleFactor: (textScaleF2F(context: context)),
+                              textScaleFactor: isMobile(context)
+                                  ? textScaleF2F(context: context) * 0.5
+                                  : min(
+                                      1, textScaleF2F(context: context) * 0.9),
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          const SizedBox(
-                            height: 160,
+                          SizedBox(
+                            height: 160 * widthScaleF2F(context: context),
                           ),
+                          if (getScreenWidth(context: context) > mobileWidth)
                           divider(context),
-                          const SizedBox(
-                            height: 160,
+                          
+                          if (getScreenWidth(context: context) <= mobileWidth)
+                            const HeaderSearchBox(),
+                          SizedBox(
+                            height:
+                                getScreenWidth(context: context) <= mobileWidth
+                                    ? 220 * widthScaleF2F(context: context)
+                                    : 160,
                           )
                         ],
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 90,
+                SizedBox(
+                  height:
+                      getScreenWidth(context: context) <= mobileWidth ? 0 : 90,
+                ),
+                if (getScreenWidth(context: context) < 1000 &&
+                    !isMobile(context))
+                  const SizedBox(
+                    height: 90,
                 )
               ],
             ),
+            if (getScreenWidth(context: context) > mobileWidth)
             const HeaderSearchBox()
           ],
         ));

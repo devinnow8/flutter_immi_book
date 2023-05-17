@@ -14,14 +14,14 @@ class MobileAppBar extends StatelessWidget {
       preferredSize: Size.fromHeight(appbarHeight),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: 30 * widthScaleF2F(context: context) * 5),
+            horizontal: getHorizontalPadding(context)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'The Immi Book',
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
-              textScaleFactor: max(textScaleF2F(context: context) * 4, 0.8),
+              textScaleFactor: (textScaleF2F(context: context) * 1.5),
             ),
             SvgPicture.asset(
               'burgerMenuIcon.svg',

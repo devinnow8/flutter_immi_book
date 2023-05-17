@@ -12,7 +12,7 @@ double appbarHeight = 80;
 
 double desktopWidth = 1920;
 double tabletWidth = 1280;
-double mobileWidth = 768;
+double mobileWidth = 786;
 
 double desktopSubSectionWidth = 1291;
 
@@ -30,17 +30,38 @@ const Color accentColor = Color.fromRGBO(183, 119, 234, 1);
 double scrollbarThickness = 15;
 
 double getMaxSectionWidth(context) {
-  if (getScreenWidth(context: context) >= 1920) {
+  if (getScreenWidth(context: context) > mobileWidth) {
     return (1920 - 207 * 2 - scrollbarThickness);
   } else
     {
-    return (1920 - 207 * 2 - scrollbarThickness);
+    return (1920 - 207 * 2);
   }
 }
 
-double getMaxNetWidth(context) {
-  return getScreenWidth(context: context) - scrollbarThickness;
+bool isMobile(context) {
+  if (getScreenWidth(context: context) < mobileWidth) {
+    return true;
+  }
+  return false;
 }
+
+double getMaxNetWidth(context) {
+  if (getScreenWidth(context: context) > mobileWidth) {
+    return getScreenWidth(context: context) - scrollbarThickness;
+  } else {
+    return getScreenWidth(context: context);
+  }
+}
+
+double getHorizontalPadding(context) {
+  if (getScreenWidth(context: context) < mobileWidth) {
+    return 30 * widthScaleF2F(context: context) * 5;
+  } //modify later
+  else {
+    return widthScaleF2F(context: context) * 200;
+  }
+}
+
 
 double getSubsectionWidth(context) {
   if (getScreenWidth(context: context) >= 1920) {
@@ -50,9 +71,9 @@ double getSubsectionWidth(context) {
   } else if (getScreenWidth(context: context) >= 1400) {
     return desktopSubSectionWidth;
   } else if (getScreenWidth(context: context) >= 1000) {
-    return desktopSubSectionWidth * textScaleF2F(context: context) * 1.2;
+    return desktopSubSectionWidth * widthScaleF2F(context: context) * 1.4;
   } else if (getScreenWidth(context: context) >= 786) {
-    return desktopSubSectionWidth * textScaleF2F(context: context) * 1.2;
+    return desktopSubSectionWidth * widthScaleF2F(context: context) * 1.4;
   }
   return desktopSubSectionWidth * 0.98;
 }
