@@ -78,7 +78,7 @@ class _PostsState extends State<Posts> {
                         ? (getSubsectionWidth(context) /
                                     getScreenWidth(context: context)) *
                                 widthScaleF2F(context: context) +
-                            0.15
+                            0.14
                         : getScreenWidth(context: context) < 900
                             ? 1.8 * widthScaleF2F(context: context)
                             : (getScreenWidth(context: context) < 1100

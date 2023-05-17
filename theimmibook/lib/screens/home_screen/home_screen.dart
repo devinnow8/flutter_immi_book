@@ -73,9 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         : 140,
                   ),
                   const Events(),
-                  // SizedBox(
-                  //   height: 100,
-                  // ),
+                  SizedBox(
+                    height: isMobile(context)
+                        ? 250 * widthScaleF2F(context: context)
+                        : 140,
+                  ),
                   // Jobs(),
                   // SizedBox(
                   //   height: 100,
