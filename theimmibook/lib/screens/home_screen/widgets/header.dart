@@ -67,11 +67,18 @@ class Header extends StatelessWidget {
                           divider(context),
                           
                           if (getScreenWidth(context: context) <= mobileWidth)
-                            const HeaderSearchBox(),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 150 * widthScaleF2F(context: context),
+                                ),
+                                const HeaderSearchBox(),
+                              ],
+                            ),
                           SizedBox(
                             height:
                                 getScreenWidth(context: context) <= mobileWidth
-                                    ? 220 * widthScaleF2F(context: context)
+                                    ? 350 * widthScaleF2F(context: context)
                                     : 160,
                           )
                         ],
@@ -83,7 +90,7 @@ class Header extends StatelessWidget {
                   height:
                       getScreenWidth(context: context) <= mobileWidth ? 0 : 90,
                 ),
-                if (getScreenWidth(context: context) < 1000 &&
+                if (getScreenWidth(context: context) < 1300 &&
                     !isMobile(context))
                   const SizedBox(
                     height: 90,

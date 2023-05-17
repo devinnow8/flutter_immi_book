@@ -120,15 +120,20 @@ Future showErrorDialog({required String errorMessage, required context}) async {
 
 Widget getHeadingAndOptions(
     {required context,
+    bool adjust = false,
     required String title,
     Widget options = const SizedBox()}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        title,
-        style: sectionHeadingStyle,
-        textScaleFactor: textScaleF2F(context: context),
+      Expanded(
+        child: Text(
+          title,
+          style: sectionHeadingStyle,
+          textScaleFactor: (adjust && isMobile(context))
+              ? textScaleF2F(context: context) * 0.7
+              : textScaleF2F(context: context),
+        ),
       ),
       options,
     ],

@@ -1,10 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:theimmibook/screens/home_screen/home_screen.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
-import 'package:video_player/video_player.dart';
 
 class Faq extends StatefulWidget {
   const Faq({super.key});
@@ -16,97 +14,82 @@ class Faq extends StatefulWidget {
 class _FaqState extends State<Faq> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (buildContext, constraints) {
-        bool isMobile = constraints.maxWidth <= mobileWidth;
-        bool mediumLargeScreen = false;
-        bool smallLargeScreen = false;
-        if (constraints.maxWidth <= 1360) {
-          smallLargeScreen = true;
-        } else if (constraints.maxWidth <= 1700) {
-          mediumLargeScreen = true;
-        }
-
-        log(constraints.maxWidth.toString());
-        return Container(
-          width: getScreenWidth(context: context),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                gradientPrimaryColor,
-                gradientSecondaryColor,
-              ],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
+    return Container(
+      width: getScreenWidth(context: context),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            gradientPrimaryColor,
+            gradientSecondaryColor,
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 80,
+          ),
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context)),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'faqTitle'.tr,
+                      style: sectionHeadingStyle
+                          .merge(const TextStyle(color: textColorWhite)),
+                      textScaleFactor: (isMobile(context))
+                          ? textScaleF2F(context: context) * 0.88
+                          : textScaleF2F(context: context),
+                    ),
+                  ),
+                ],
+              ),
+              
+         
             ),
           ),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 80,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? desktopSubSectionWidth * 0.75
-                        : desktopSubSectionWidth),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'faqTitle'.tr,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w800, fontSize: 60),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? designScreenWidth
-                        : constraints.maxWidth - 80),
-                child: Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxWidth: mediumLargeScreen
-                                  ? desktopSubSectionWidth * .75
-                                  : (smallLargeScreen
-                                      ? constraints.maxWidth * 0.7
-                                      : desktopSubSectionWidth)),
-                          child: Column(
-                            children: [
-                              ...faqTilesData.map((e) => faqTile()),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'viewMore'.tr,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-            ],
+          const SizedBox(
+            height: 60,
           ),
-        );
-      },
+         
+           
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context)),
+              child: Column(
+                children: [
+                  ...faqTilesData.map((e) => faqTile()),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'viewMore'.tr,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+                ),
+          
+          const SizedBox(
+            height: 80,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -150,6 +133,7 @@ Widget faqTile() {
                     Expanded(
                       child: Text(
                         question,
+                        textScaleFactor: textScaleF2F(context: context),
                         style: const TextStyle(fontSize: 45),
                       ),
                     )
@@ -169,10 +153,14 @@ Widget faqTile() {
                             ),
                             ConstrainedBox(
                                 constraints:
-                                    const BoxConstraints(maxWidth: 1000),
+                                     BoxConstraints(
+                                    maxWidth:
+                                        1200 * widthScaleF2F(context: context)),
                                 child: Expanded(
                                   child: Text(
                                     answer,
+                                    textScaleFactor:
+                                        textScaleF2F(context: context),
                                     style: const TextStyle(fontSize: 30),
                                   ),
                                 )),

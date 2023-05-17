@@ -74,11 +74,13 @@ class _PostsState extends State<Posts> {
                   carouselController: _carousalController,
                   options: CarouselOptions(
                     
-                    aspectRatio: getScreenWidth(context: context) < mobileWidth
+                    aspectRatio: getScreenWidth(context: context) < 360
+                        ? 0.7
+                        : getScreenWidth(context: context) < mobileWidth
                         ? (getSubsectionWidth(context) /
                                     getScreenWidth(context: context)) *
                                 widthScaleF2F(context: context) +
-                            0.14
+                                0.15
                         : getScreenWidth(context: context) < 900
                             ? 1.8 * widthScaleF2F(context: context)
                             : (getScreenWidth(context: context) < 1100

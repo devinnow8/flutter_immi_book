@@ -17,115 +17,98 @@ class Footer extends StatefulWidget {
 class _FooterState extends State<Footer> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (buildContext, constraints) {
-        bool isMobile = constraints.maxWidth <= mobileWidth;
-        bool mediumLargeScreen = false;
-        bool smallLargeScreen = false;
-        if (constraints.maxWidth <= 1360) {
-          smallLargeScreen = true;
-        } else if (constraints.maxWidth <= 1700) {
-          mediumLargeScreen = true;
-        }
-
-        log(constraints.maxWidth.toString());
-        return Container(
-          width: getScreenWidth(context: context),
-          color: Color.fromARGB(255, 0, 0, 0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 80,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? desktopSubSectionWidth * 0.75
-                        : desktopSubSectionWidth),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'immibookTitle'.tr,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 30,
-                            color: accentColor),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? designScreenWidth
-                        : constraints.maxWidth - 80),
-                child: Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxWidth: mediumLargeScreen
-                                  ? desktopSubSectionWidth * .75
-                                  : (smallLargeScreen
-                                      ? constraints.maxWidth * 0.7
-                                      : desktopSubSectionWidth)),
-                          child: Column(
-                            children: [
-                              ConstrainedBox(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 600),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SelectableText(
-                                      'postsTitle'.tr,
-                                    ),
-                                    Text('jobs'.tr),
-                                    Text('accomodations'.tr),
-                                    Text('events'.tr),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              ConstrainedBox(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 300),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SvgPicture.asset('twitterIcon.svg'),
-                                    SvgPicture.asset('youtubeIcon.svg'),
-                                    SvgPicture.asset('tiktokIcon.svg'),
-                                    SvgPicture.asset('instagramIcon.svg'),
-                                    SvgPicture.asset('mailIcon.svg'),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-            ],
+    return Container(
+      width: getScreenWidth(context: context),
+      color: Color.fromARGB(255, 0, 0, 0),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 80,
           ),
-        );
-      },
+          ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth: getSubsectionWidth(context)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    'immibookTitle'.tr,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 30,
+                        color: accentColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height:
+                isMobile(context) ? 60 * widthScaleF2F(context: context) : 60,
+          ),
+       
+          ConstrainedBox(
+            constraints: BoxConstraints(
+                  maxWidth: getSubsectionWidth(context)),
+            child: Column(
+              children: [
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 600),
+                  child: Flex(
+                    direction:
+                        isMobile(context) ? Axis.vertical : Axis.horizontal,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SelectableText(
+                        'postsTitle'.tr,
+                        textScaleFactor: textScaleF2F(context: context),
+                      ),
+                      Text(
+                        'jobs'.tr,
+                        textScaleFactor: textScaleF2F(context: context),
+                      ),
+                      Text(
+                        'accomodations'.tr,
+                        textScaleFactor: textScaleF2F(context: context),
+                      ),
+                      Text(
+                        'events'.tr,
+                        textScaleFactor: textScaleF2F(context: context),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getHorizontalPadding(context)),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.asset('twitterIcon.svg'),
+                        SvgPicture.asset('youtubeIcon.svg'),
+                        SvgPicture.asset('tiktokIcon.svg'),
+                        SvgPicture.asset('instagramIcon.svg'),
+                        SvgPicture.asset('mailIcon.svg'),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          
+          const SizedBox(
+            height: 80,
+          ),
+        ],
+      ),
     );
   }
 }

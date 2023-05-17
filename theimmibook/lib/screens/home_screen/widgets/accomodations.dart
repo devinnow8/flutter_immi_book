@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
@@ -15,95 +16,81 @@ class Accomodations extends StatefulWidget {
 class _AccomodationsState extends State<Accomodations> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (buildContext, constraints) {
-        bool isMobile = constraints.maxWidth <= mobileWidth;
-        bool mediumLargeScreen = false;
-        bool smallLargeScreen = false;
-        if (constraints.maxWidth <= 1360) {
-          smallLargeScreen = true;
-        } else if (constraints.maxWidth <= 1700) {
-          mediumLargeScreen = true;
-        }
-
-        log(constraints.maxWidth.toString());
-        return Container(
-          width: getScreenWidth(context: context),
-          color: bodyBgSecondaryColor,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 80,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? desktopSubSectionWidth * 0.75
-                        : desktopSubSectionWidth),
-                child: getHeadingAndOptions(
+    return Container(
+      width: getScreenWidth(context: context),
+      color: bodyBgSecondaryColor,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 80,
+          ),
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context)),
+              child: getHeadingAndOptions(
                   context: context,
                   title: 'accomodationsTitle'.tr,
+                  adjust: true,
                   options: Text(
-                      'viewMore'.tr,
+                    'viewMore'.tr,
                     style: sectionHeadingOptionsStyle,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxWidth: smallLargeScreen
-                        ? designScreenWidth
-                        : constraints.maxWidth - 80),
-                child: Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxWidth: mediumLargeScreen
-                                  ? desktopSubSectionWidth * .75
-                                  : (smallLargeScreen
-                                      ? constraints.maxWidth * 0.7
-                                      : desktopSubSectionWidth)),
-                          child: Wrap(
-                            spacing: 30,
-                            runSpacing: 30,
-                            children: [
-                              ...accomodationCardsData
-                                  .map((e) => accomodationCard())
-                            ],
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-            ],
+                    textScaleFactor: textScaleF2F(context: context),
+                  )),
+            ),
           ),
-        );
-      },
+          const SizedBox(
+            height: 60,
+          ),
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context)),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 30,
+                runSpacing: 30,
+                children: [
+                  ...accomodationCardsData
+                          .map((e) => accomodationCard(context))
+                ],
+              ),
+            ),
+            
+          ),
+          const SizedBox(
+            height: 80,
+          ),
+        ],
+      ),
     );
   }
 }
 
-Widget accomodationCard() {
+Widget accomodationCard(mainContext) {
   String title = accomodationCardsData[0]['title'];
   String rent = accomodationCardsData[0]['rent'];
   String imageUrl = accomodationCardsData[0]['imageUrl'];
   var scale = 1.0.obs;
-  VideoPlayerController _vpController =
-      VideoPlayerController.network('https://www.fluttercampus.com/video.mp4')
-        ..initialize().then((_) {
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        });
+  // VideoPlayerController _vpController =
+  //     VideoPlayerController.network('https://www.fluttercampus.com/video.mp4')
+  //       ..initialize().then((_) {
+  //         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+  //       });
+
 
   return StatefulBuilder(builder: (context, setState) {
-    
+    double width = isMobile(context)
+        ? getSubsectionWidth(context) * 1.2 * widthScaleF2F(context: context)
+        : 630;
+    double height = isMobile(context)
+        ? 660 * 2 * 1.2 * widthScaleF2F(context: context) 
+           
+        : 660;
       return MouseRegion(
       cursor: MaterialStateMouseCursor.clickable,
       onEnter: (_) {
@@ -111,7 +98,7 @@ Widget accomodationCard() {
           () {
             log('expanding');
             scale.value = 1.05;
-            _vpController.play();
+            // _vpController.play();
           },
         );
       },
@@ -119,7 +106,7 @@ Widget accomodationCard() {
         setState(
           () {
             scale.value = 1.0;
-            _vpController.seekTo(Duration.zero);
+            // _vpController.seekTo(Duration.zero);
           },
         );
       },
@@ -141,15 +128,17 @@ Widget accomodationCard() {
                           blurRadius: 15)
                 ]),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(35),
+              borderRadius: BorderRadius.circular(isMobile(context)
+                  ? 70 * widthScaleF2F(context: context)
+                  : 35),
               child: Stack(
                 children: [
                   Stack(
                     alignment: Alignment.center,
                     children: [
                       Container(
-                        width: 630,
-                        height: 660,
+                        width: width,
+                        height: height,
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(10),
@@ -160,7 +149,10 @@ Widget accomodationCard() {
                           children: [
                             Expanded(
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(
+                                    isMobile(context)
+                                        ? 60 * widthScaleF2F(context: context)
+                                        : 30),
                                 child: Image.network(
                                   imageUrl,
                                   height: double.maxFinite,
@@ -183,6 +175,10 @@ Widget accomodationCard() {
                                     ),
                                     Text(
                                       title,
+                                      textScaleFactor: isMobile(context)
+                                          ? textScaleF2F(context: context) *
+                                              0.85
+                                          : textScaleF2F(context: context),
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 40,
@@ -190,9 +186,16 @@ Widget accomodationCard() {
                                     ),
                                     Text(
                                       'viewDetails'.tr,
+                                      textScaleFactor:
+                                          textScaleF2F(context: context),
                                       style: const TextStyle(
                                           color: accentColor, fontSize: 24),
                                     ),
+                                    if (isMobile(context))
+                                      SizedBox(
+                                        height: 15 *
+                                            widthScaleF2F(context: context),
+                                      )
                                   ],
                                 ),
                               ),
@@ -202,19 +205,29 @@ Widget accomodationCard() {
                       ),
                       PhysicalModel(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(isMobile(context)
+                            ? 30 * widthScaleF2F(context: context)
+                            : 15),
                         elevation: 5,
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15)),
-                          width: 250,
-                          height: 100,
+                              borderRadius: BorderRadius.circular(
+                                  isMobile(context)
+                                      ? 30 * widthScaleF2F(context: context)
+                                      : 15)),
+                          width: isMobile(context)
+                              ? 250 * 2.2 * widthScaleF2F(context: context)
+                              : 250,
+                          height: isMobile(context)
+                              ? 100 * 2.2 * widthScaleF2F(context: context)
+                              : 100,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'A\$ $rent',
+                                textScaleFactor: textScaleF2F(context: context),
                                 style: const TextStyle(
                                     color: accentColor,
                                     fontSize: 22,
@@ -222,6 +235,7 @@ Widget accomodationCard() {
                               ),
                               Text(
                                 ' / month',
+                                textScaleFactor: textScaleF2F(context: context),
                                 style: TextStyle(
                                     color: Colors.grey.shade500, fontSize: 16),
                               )

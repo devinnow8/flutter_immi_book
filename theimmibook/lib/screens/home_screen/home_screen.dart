@@ -82,20 +82,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   // SizedBox(
                   //   height: 100,
                   // ),
-                  // Register(),
-                  // SizedBox(
-                  //   height: 100,
-                  // ),
-                  // Accomodations(),
-                  // SizedBox(
-                  //   height: 100,
-                  // ),
-                  // AboutUs(),
-                  // SizedBox(
-                  //   height: 100,
-                  // ),
-                  // Faq(),
-                  // Footer()
+                  const Register(),
+
+                  const Accomodations(),
+                  SizedBox(
+                    height: isMobile(context)
+                        ? 200 * widthScaleF2F(context: context)
+                        : 100,
+                  ),
+                  const AboutUs(),
+                  SizedBox(
+                    height: isMobile(context)
+                        ? 200 * widthScaleF2F(context: context)
+                        : 100,
+                  ),
+                  const Faq(),
+                  const Footer()
                 ],
               ),
             ),
