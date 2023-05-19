@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:theimmibook/screens/home_screen/widgets/Faq.dart';
 import 'package:theimmibook/screens/home_screen/widgets/about_us.dart.dart';
 import 'package:theimmibook/screens/home_screen/widgets/accomodations.dart';
@@ -12,7 +10,6 @@ import 'package:theimmibook/screens/home_screen/widgets/posts.dart';
 import 'package:theimmibook/screens/home_screen/widgets/register.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
-import 'package:theimmibook/utils/widgets/app_bar/appbar.dart';
 
 import 'widgets/footer.dart';
 
@@ -78,10 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         ? 250 * widthScaleF2F(context: context)
                         : 140,
                   ),
-                  // Jobs(),
-                  // SizedBox(
-                  //   height: 100,
-                  // ),
+                  const Jobs(),
+                  const SizedBox(
+                    height: 100,
+                  ),
                   const Register(),
 
                   const Accomodations(),

@@ -14,6 +14,7 @@ final Map<String, String> enUS = {
   'about': 'About',
   'services': 'Services',
   'jobs': 'Jobs',
+  'viewAllJobs': 'View all jobs',
   'accomodations': 'Accomodations',
   'events': 'Events',
   'register': 'Register or Sign In',

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
+import 'package:theimmibook/utils/widgets/customButton/customButton.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -79,43 +80,14 @@ class Register extends StatelessWidget {
                 ? 60 * widthScaleF2F(context: context) + 15
                 : 60,
           ),
-          TextButton(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<OutlinedBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
-                ),
-              ),
-            ),
-            onHover: (_) {
-              _hover.value = _;
-            },
+          customButton(
             onPressed: () {},
-            child: Obx(
-              () => AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: !(_hover.value) ? highlightColor : Colors.white,
-                      border: _hover.value
-                          ? Border.all(color: highlightColor, width: 4)
-                          : Border.all()),
-                  padding: EdgeInsets.symmetric(
-                      vertical: _hover.value
-                          ? 20.5 * widthScaleF2F(context: context)
-                          : 24 * widthScaleF2F(context: context),
-                      horizontal: 60 * widthScaleF2F(context: context)),
-                  child: Text(
-                    'Register now',
-                    textScaleFactor: isMobile(context)
-                        ? textScaleF2F(context: context) * 0.7
-                        : textScaleF2F(context: context),
-                    style: TextStyle(
-                        color: textColorBlack,
-                        fontWeight: FontWeight.w700,
-                        fontSize: _hover.value ? 20.2 : 20),
-                  )),
-            ),
+            highlightBgColor: Colors.white,
+            bgColor: highlightColor,
+            highlightTextColor: textColorBlack,
+            textColor: textColorBlack,
+            highlightColor: highlightColor,
+            text: 'Register now',
           ),
           SizedBox(
             height: 160 * widthScaleF2F(context: context),

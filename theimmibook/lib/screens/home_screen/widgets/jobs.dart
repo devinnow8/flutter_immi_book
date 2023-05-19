@@ -1,9 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
+import 'package:theimmibook/utils/widgets/customButton/customButton.dart';
 
 class Jobs extends StatefulWidget {
   const Jobs({super.key});
@@ -13,216 +14,234 @@ class Jobs extends StatefulWidget {
 }
 
 class _JobsState extends State<Jobs> {
+  
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (buildContext, constraints) {
-        bool isMobile = constraints.maxWidth <= mobileWidth;
-        bool mediumLargeScreen = false;
-        bool smallLargeScreen = false;
-        if (constraints.maxWidth <= 1360) {
-          smallLargeScreen = true;
-        } else if (constraints.maxWidth <= 1700) {
-          mediumLargeScreen = true;
-        }
-
-        log(constraints.maxWidth.toString());
-        return Column(
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: smallLargeScreen
-                      ? desktopSubSectionWidth * 0.75
-                      : desktopSubSectionWidth),
-                          
-                child: getHeadingAndOptions(
-                  context: context,
-                  title: 'jobsTitle'.tr,
-                  options: Text(
-                    'viewMore'.tr,
-                    style: sectionHeadingOptionsStyle,
-                  ),
-                )
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: smallLargeScreen
-                      ? designScreenWidth
-                      : constraints.maxWidth - 80),
-              child: Container(
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(
-                        maxWidth: mediumLargeScreen
-                            ? desktopSubSectionWidth * .75
-                            : (smallLargeScreen
-                                ? constraints.maxWidth * 0.7
-                                : desktopSubSectionWidth)),
-                    child: Wrap(
-                      spacing: 30,
-                      runSpacing: 30,
-                      children: [...jobCardsData.map((e) => jobCard())],
-                    ),
-                  ),
-                ]),
+    return Column(
+      children: [
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
+          child: Container(
+            constraints: BoxConstraints(maxWidth: getSubsectionWidth(context)),
+            child: getHeadingAndOptions(
+              context: context,
+              title: 'jobsTitle'.tr,
+              options: Text(
+                'viewAllJobs'.tr,
+                style: sectionHeadingOptionsStyle,
+                textScaleFactor: textScaleF2F(context: context),
               ),
-            )
-          ],
-        );
-      },
+            ),
+          ),
+        ),
+        SizedBox(
+          height:
+              isMobile(context) ? 100 * widthScaleF2F(context: context) : 60,
+        ),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+              maxWidth: getSubsectionWidth(context), maxHeight: 900),
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return jobCard();
+            },
+            itemCount: jobCardsData.length,
+          ),
+        )
+      ],
     );
   }
 }
 
 
+
 Widget jobCard() {
-  String title = jobCardsData[0]['title'];
-  String subTitle = jobCardsData[0]['subTitle'];
+  String title = jobCardsData[0]['jobTitle'];
+  String employer = jobCardsData[0]['employer'];
   String description = jobCardsData[0]['description'];
   String imageUrl = jobCardsData[0]['imageUrl'];
-var scale = 1.0.obs;
+  var scale = 1.0.obs;
 
-  return LayoutBuilder(
-    builder: (buildContext, constraints) =>
-        StatefulBuilder(builder: (context, setState) {
-      log('----->>>>${constraints.maxWidth}');
-      return MouseRegion(
-        cursor: MaterialStateMouseCursor.clickable,
-        onEnter: (_) {
-          setState(
-            () {
-              log('expanding');
-              scale.value = 1.05;
-            },
-          );
+
+
+  return StatefulBuilder(builder: (context, setState) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 14),
+      child: MouseRegion(
+          onEnter: (event) {
+            scale.value = 1.01;
+          },
+          onExit: (event) {
+            scale.value = 1;
         },
-        onExit: (_) {
-          setState(
-            () {
-              scale.value = 1.0;
-            },
-          );
-        },
-        child: Obx(
-          () => AnimatedScale(
-            scale: scale.value,
-            duration: const Duration(milliseconds: 350),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 350),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    scale.value == 1
-                        ? const BoxShadow()
-                        : const BoxShadow(
-                            color: accentColor, spreadRadius: 2, blurRadius: 15)
-                  ]),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Container(
-                  width:
-                      constraints.maxWidth < 980 && constraints.maxWidth > 630
-                          ? 300
-                          : 629,
-                  height:
-                      constraints.maxWidth < 980 && constraints.maxWidth > 630
-                          ? 629
-                          : 300,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 19, 19, 1),
-                    borderRadius: BorderRadius.circular(10),
-                     
-                  ),
-                  child: Flex(
-                    direction:
-                        constraints.maxWidth < 980 && constraints.maxWidth > 630
-                            ? Axis.vertical
-                            : Axis.horizontal,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: Image.network(
-                          imageUrl,
-                          height: constraints.maxWidth < 980 &&
-                                  constraints.maxWidth > 630
-                              ? 319
-                              : double.maxFinite,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                      Expanded(
-                          child: Container(
-                        width: constraints.maxWidth < 980 &&
-                                constraints.maxWidth > 630
-                            ? double.maxFinite
-                            : 319,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 37, vertical: 30),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              title,
-                              style: const TextStyle(fontSize: 25),
-                            ),
-                            Text(subTitle,
-                                style: const TextStyle(
-                                    fontSize: 20, color: accentColor)),
-                            Text(description,
-                                style: const TextStyle(fontSize: 16))
-                          ],
-                        ),
-                      ))
+          child: Obx(
+            () => AnimatedScale(
+              duration: const Duration(milliseconds: 150),
+              scale: scale.value,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+            
+                      BoxShadow(
+                          color: scale.value != 1
+                              ? Colors.black54
+                              : Colors.black12,
+                          blurRadius: 10,
+                          spreadRadius: 1)
                     ],
-                  ),
+                    borderRadius: BorderRadius.circular(
+                        30 * widthScaleF2F(context: context))),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 8,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w700,
+                              color: textColorBlack,
+                            ),
+                            textScaleFactor: textScaleF2F(context: context),
+                          ),
+                          SizedBox(
+                            height: 35 * widthScaleF2F(context: context),
+                          ),
+                          Text(
+                            employer,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: accentColor,
+                            ),
+                            textScaleFactor: textScaleF2F(context: context),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                'locationPin.svg',
+                                fit: BoxFit.fitHeight,
+                                height: widthScaleF2F(context: context) * 25,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  jobCardsData[0]['location'],
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: textColorBlack,
+                                  ),
+                                  textScaleFactor:
+                                      textScaleF2F(context: context),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20 * widthScaleF2F(context: context),
+                          ),
+                          Text(
+                            description,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: textColorBlack,
+                            ),
+                            textScaleFactor: textScaleF2F(context: context),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              customButton(
+                                highlightTextColor:
+                                    const Color.fromRGBO(47, 47, 170, 1),
+                                highlightBgColor: Colors.white,
+                                smallButton: true,
+                                onPressed: () {},
+                                textColor: textColorWhite,
+                                highlightColor:
+                                    const Color.fromRGBO(47, 47, 170, 1),
+                                bgColor: const Color.fromRGBO(47, 47, 170, 1),
+                                text: '\$61,000 per year',
+                              ),
+                              Text('|')
+                            ],
+                          ),
+                          Text(
+                            '24 hrs ago',
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: textColorBlack,
+                            ),
+                            textScaleFactor: textScaleF2F(context: context),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-          ),
-        ),
-        
-        
-      );
-    }),
-  );
+          )),
+    );
+  });
 }
 
 List jobCardsData = [
   {
-    'title': 'Your personal guide in new country',
-    'subTitle': 'Feel free to explorer',
+    'jobTitle': 'Draftsperson with advanced  BIM Software',
+    'employer': 'Insight BIM',
+    'location': '20/330 Wattle St, Ultimo NSW 2007',
     'description':
-        'It is a long established fact that a reader will be distracted by the readable content.',
+        'Draftsperson with advanced understanding of BIM software with skills as a software developer...',
     'imageUrl':
-        'https://i.insider.com/5f5f9dbbe6ff30001d4e8a39?width=1000&format=jpeg&auto=webp'
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAAcXlIOIwRV8sWxU5swpc992QP742m4tUns1vXrsulw&usqp=CAU&ec=48600112'
   },
   {
-    'title': 'Your personal guide in new country',
-    'subTitle': 'Feel free to explorer',
+    'jobTitle': 'Draftsperson with advanced  BIM Software',
+    'employer': 'Insight BIM',
+    'location': '20/330 Wattle St, Ultimo NSW 2007',
     'description':
-        'It is a long established fact that a reader will be distracted by the readable content.',
+        'Draftsperson with advanced understanding of BIM software with skills as a software developer...',
     'imageUrl':
-        'https://i.insider.com/5f5f9dbbe6ff30001d4e8a39?width=1000&format=jpeg&auto=webp'
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAAcXlIOIwRV8sWxU5swpc992QP742m4tUns1vXrsulw&usqp=CAU&ec=48600112'
   },
   {
-    'title': 'Your personal guide in new country',
-    'subTitle': 'Feel free to explorer',
+    'jobTitle': 'Draftsperson with advanced  BIM Software',
+    'employer': 'Insight BIM',
+    'location': '20/330 Wattle St, Ultimo NSW 2007',
     'description':
-        'It is a long established fact that a reader will be distracted by the readable content.',
+        'Draftsperson with advanced understanding of BIM software with skills as a software developer...',
     'imageUrl':
-        'https://i.insider.com/5f5f9dbbe6ff30001d4e8a39?width=1000&format=jpeg&auto=webp'
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAAcXlIOIwRV8sWxU5swpc992QP742m4tUns1vXrsulw&usqp=CAU&ec=48600112'
   },
-  {
-    'title': 'Your personal guide in new country',
-    'subTitle': 'Feel free to explorer',
-    'description':
-        'It is a long established fact that a reader will be distracted by the readable content.',
-    'imageUrl':
-        'https://i.insider.com/5f5f9dbbe6ff30001d4e8a39?width=1000&format=jpeg&auto=webp'
-  }
+
 ];
