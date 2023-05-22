@@ -15,7 +15,7 @@ final Map<String, String> enUS = {
   'services': 'Services',
   'jobs': 'Jobs',
   'viewAllJobs': 'View all jobs',
-  'accomodations': 'Accomodations',
+  'accommodations': 'Accommodations',
   'events': 'Events',
   'register': 'Register or Sign In',
   'heroTagline': 'Everything you need to know about after immigration',
@@ -27,7 +27,7 @@ final Map<String, String> enUS = {
   'registerTitle': 'Start your international journey now',
   'registerDescription':
       'It is a long established fact that a reader will be distracted by the readable content of a page looking.',
-  'accomodationsTitle': 'Accomodations',
+  'accommodationsTitle': 'Accommodations',
   'aboutTitle': 'About Us',
   'aboutSubTitle': 'Feel free to explorer',
   'aboutDescription':

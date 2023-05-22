@@ -39,30 +39,33 @@ class customButton extends StatelessWidget {
         onExit: (_) {
           _hover.value = false;
         },
-        child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: (_hover.value) ? highlightBgColor : bgColor,
-                border: Border.all(
-                    color: highlightColor, width: smallButton ? 2 : 4)),
-            padding: EdgeInsets.symmetric(
-                vertical: _hover.value
-                    ? (textsize * widthScaleF2F(context: context)) 
-                    : textsize * widthScaleF2F(context: context),
-                horizontal:
-                    (smallButton ? 25 : 60) * widthScaleF2F(context: context)),
-            child: Text(
-              text,
-              textScaleFactor: isMobile(context)
-                  ? textScaleF2F(context: context) * 0.7
-                  : textScaleF2F(context: context),
-              style: TextStyle(
-                  letterSpacing: smallButton ? 1.5 : 1,
-                  color: _hover.value ? highlightTextColor : textColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: _hover.value ? textsize + .1 : textsize),
-            )),
+        child: GestureDetector(
+          onTap: onPressed,
+          child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: (_hover.value) ? highlightBgColor : bgColor,
+                  border: Border.all(
+                      color: highlightColor, width: smallButton ? 2 : 4)),
+              padding: EdgeInsets.symmetric(
+                  vertical: _hover.value
+                      ? (textsize * widthScaleF2F(context: context))
+                      : textsize * widthScaleF2F(context: context),
+                  horizontal: (smallButton ? 25 : 60) *
+                      widthScaleF2F(context: context)),
+              child: Text(
+                text,
+                textScaleFactor: isMobile(context)
+                    ? textScaleF2F(context: context) * 0.7
+                    : textScaleF2F(context: context),
+                style: TextStyle(
+                    letterSpacing: smallButton ? 1.5 : 1,
+                    color: _hover.value ? highlightTextColor : textColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: _hover.value ? textsize + .1 : textsize),
+              )),
+        ),
       ),
     );
   }

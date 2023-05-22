@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
+import 'package:theimmibook/screens/accommodations_screen/widgets/accommodations.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/common/header.dart';
 
 import '../home_screen/widgets/footer.dart';
 
-class MyJobsPage extends StatefulWidget {
-  const MyJobsPage({super.key});
+class MyAccommodationsPage extends StatefulWidget {
+  const MyAccommodationsPage({super.key});
 
   @override
-  State<MyJobsPage> createState() => _MyJobsPageState();
+  State<MyAccommodationsPage> createState() => _MyAccommodationsPageState();
 }
 
-class _MyJobsPageState extends State<MyJobsPage> {
+class _MyAccommodationsPageState extends State<MyAccommodationsPage> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -46,17 +46,14 @@ class _MyJobsPageState extends State<MyJobsPage> {
               child: Column(
                 children: [
                   const Header(
-                    title: 'Jobs in Australia',
-                    searchItems: ['All Job Types', 'Pay Rates', 'WFH'],
+                    title: 'Accommodations',
                   ),
                   SizedBox(
                     height: isMobile(context)
-                        ? 250 * widthScaleF2F(context: context)
-                        : 160,
+                        ? 70 * widthScaleF2F(context: context)
+                        : 50,
                   ),
-                  Jobs(
-                    miniWidget: false,
-                  ),
+                  const Accommodations(),
                   const Footer()
                 ],
               ),

@@ -5,6 +5,6 @@ List navMenuItems = [
   'about'.tr,
   'services'.tr,
   'jobs'.tr,
-  'accomodations'.tr,
+  'accommodations'.tr,
   'events'.tr,
 ];

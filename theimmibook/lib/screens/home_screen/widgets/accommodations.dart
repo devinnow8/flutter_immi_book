@@ -1,19 +1,18 @@
 import 'dart:developer';
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:video_player/video_player.dart';
 
-class Accomodations extends StatefulWidget {
-  const Accomodations({super.key});
+class AccommodationsWidget extends StatefulWidget {
+  const AccommodationsWidget({super.key});
 
   @override
-  State<Accomodations> createState() => _AccomodationsState();
+  State<AccommodationsWidget> createState() => _AccommodationsWidgetState();
 }
 
-class _AccomodationsState extends State<Accomodations> {
+class _AccommodationsWidgetState extends State<AccommodationsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +31,7 @@ class _AccomodationsState extends State<Accomodations> {
                   BoxConstraints(maxWidth: getSubsectionWidth(context)),
               child: getHeadingAndOptions(
                   context: context,
-                  title: 'accomodationsTitle'.tr,
+                  title: 'accommodationsTitle'.tr,
                   adjust: true,
                   options: Text(
                     'viewMore'.tr,
@@ -55,12 +54,10 @@ class _AccomodationsState extends State<Accomodations> {
                 spacing: 30,
                 runSpacing: 30,
                 children: [
-                  ...accomodationCardsData
-                          .map((e) => accomodationCard(context))
+                  ...accomodationCardsData.map((e) => accomodationCard(context))
                 ],
               ),
             ),
-            
           ),
           const SizedBox(
             height: 80,
@@ -82,16 +79,14 @@ Widget accomodationCard(mainContext) {
   //         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
   //       });
 
-
   return StatefulBuilder(builder: (context, setState) {
     double width = isMobile(context)
         ? getSubsectionWidth(context) * 1.2 * widthScaleF2F(context: context)
         : 630;
     double height = isMobile(context)
-        ? 660 * 2 * 1.2 * widthScaleF2F(context: context) 
-           
+        ? 660 * 2 * 1.2 * widthScaleF2F(context: context)
         : 660;
-      return MouseRegion(
+    return MouseRegion(
       cursor: MaterialStateMouseCursor.clickable,
       onEnter: (_) {
         setState(
@@ -117,7 +112,6 @@ Widget accomodationCard(mainContext) {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 350),
             decoration: BoxDecoration(
-                
                 borderRadius: BorderRadius.circular(40),
                 boxShadow: [
                   scale.value == 1
@@ -140,7 +134,13 @@ Widget accomodationCard(mainContext) {
                         width: width,
                         height: height,
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 255, 255),
+                          gradient: const LinearGradient(
+                              colors: [
+                                gradientPrimaryColor,
+                                gradientSecondaryColor,
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Flex(
@@ -180,7 +180,8 @@ Widget accomodationCard(mainContext) {
                                               0.85
                                           : textScaleF2F(context: context),
                                       style: const TextStyle(
-                                          color: Colors.black,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
                                           fontSize: 40,
                                           fontWeight: FontWeight.w700),
                                     ),
@@ -189,7 +190,7 @@ Widget accomodationCard(mainContext) {
                                       textScaleFactor:
                                           textScaleF2F(context: context),
                                       style: const TextStyle(
-                                          color: accentColor, fontSize: 24),
+                                          color: textColorWhite, fontSize: 24),
                                     ),
                                     if (isMobile(context))
                                       SizedBox(
@@ -229,7 +230,7 @@ Widget accomodationCard(mainContext) {
                                 'A\$ $rent',
                                 textScaleFactor: textScaleF2F(context: context),
                                 style: const TextStyle(
-                                    color: accentColor,
+                                    color: bodyColorBlue,
                                     fontSize: 22,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -261,31 +262,31 @@ Widget accomodationCard(mainContext) {
           ),
         ),
       ),
-      );
+    );
   });
 }
 
 List accomodationCardsData = [
   {
-    'title': 'Your personal guide in new country',
+    'title': 'Modern studio near Filnders Street Railway Station',
     'rent': '400',
     'imageUrl':
         'https://is1-2.housingcdn.com/01c16c28/5b22150c7ca535f7ee5422c26d02aefa/v0/medium/1_bhk_apartment-for-rent-nedumbassery-Aluva-bedroom.jpg'
   },
   {
-    'title': 'Your personal guide in new country',
+    'title': 'Modern studio near Filnders Street Railway Station',
     'rent': '400',
     'imageUrl':
         'https://is1-2.housingcdn.com/01c16c28/5b22150c7ca535f7ee5422c26d02aefa/v0/medium/1_bhk_apartment-for-rent-nedumbassery-Aluva-bedroom.jpg'
   },
   {
-    'title': 'Your personal guide in new country',
+    'title': 'Modern studio near Filnders Street Railway Station',
     'rent': '400',
     'imageUrl':
         'https://is1-2.housingcdn.com/01c16c28/5b22150c7ca535f7ee5422c26d02aefa/v0/medium/1_bhk_apartment-for-rent-nedumbassery-Aluva-bedroom.jpg'
   },
   {
-    'title': 'Your personal guide in new country',
+    'title': 'Modern studio near Filnders Street Railway Station',
     'rent': '400',
     'imageUrl':
         'https://is1-2.housingcdn.com/01c16c28/5b22150c7ca535f7ee5422c26d02aefa/v0/medium/1_bhk_apartment-for-rent-nedumbassery-Aluva-bedroom.jpg'

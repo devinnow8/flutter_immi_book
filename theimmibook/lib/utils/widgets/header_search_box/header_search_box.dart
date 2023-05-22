@@ -28,7 +28,9 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
           : EdgeInsets.zero,
       width: (isMobile(context)
           ? 1100 * widthScaleF2F(context: context)
-          : 1100 * widthScaleF2F(context: context)),
+          : widget.searchMenuItems.isEmpty
+              ? (1400 * widthScaleF2F(context: context))
+              : getSubsectionWidth(context)),
       decoration: BoxDecoration(
         gradient: getScreenWidth(context: context) > mobileWidth
             ? const LinearGradient(
@@ -96,7 +98,8 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
               constraints: const BoxConstraints(
                   minWidth: double.maxFinite, maxHeight: 50),
             
-              margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+              margin: EdgeInsets.fromLTRB(
+                  0, 40 * widthScaleF2F(context: context), 0, 0),
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: FittedBox(

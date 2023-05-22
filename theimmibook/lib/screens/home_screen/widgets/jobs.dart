@@ -2,12 +2,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:theimmibook/screens/jobs_screen/widgets/detailed_job_view.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/customButton/customButton.dart';
 
 class Jobs extends StatefulWidget {
-  const Jobs({super.key});
+  bool miniWidget;
+  Jobs({super.key, this.miniWidget = true});
 
   @override
   State<Jobs> createState() => _JobsState();
@@ -52,16 +55,20 @@ class _JobsState extends State<Jobs> {
             padding:
                 EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
             child: ConstrainedBox(
-              constraints: BoxConstraints(
-                  maxWidth: getSubsectionWidth(context), maxHeight: 900),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return jobCard();
-                },
-                itemCount: jobCardsData.length,
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context)),
+              child: Column(
+                children: [
+                  ...jobCardsData.map((e) => jobCard()).toList(),
+                  if (widget.miniWidget == false)
+                    ...jobCardsData.map((e) => jobCard()).toList()
+                ],
               ),
             ),
-          )
+          ),
+        const SizedBox(
+          height: 150,
+        )
       ],
     );
   }
@@ -195,7 +202,11 @@ Widget jobCard() {
                                     const Color.fromRGBO(47, 47, 170, 1),
                                 highlightBgColor: Colors.white,
                                 smallButton: true,
-                                onPressed: () {},
+                                onPressed: () {
+                                  GoRouter.of(context).pushNamed('detailedView',
+                                      extra: const DetailedJobView());
+                                  print('clicked');
+                                },
                                 textColor: textColorWhite,
                                 highlightColor:
                                     const Color.fromRGBO(47, 47, 170, 1),

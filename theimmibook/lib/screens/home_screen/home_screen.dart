@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:theimmibook/screens/home_screen/widgets/Faq.dart';
 import 'package:theimmibook/screens/home_screen/widgets/about_us.dart.dart';
-import 'package:theimmibook/screens/home_screen/widgets/accomodations.dart';
+import 'package:theimmibook/screens/home_screen/widgets/accommodations.dart';
 import 'package:theimmibook/screens/home_screen/widgets/events.dart';
 import 'package:theimmibook/utils/widgets/common/header.dart';
 import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
@@ -75,13 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         ? 250 * widthScaleF2F(context: context)
                         : 140,
                   ),
-                  const Jobs(),
+                  Jobs(),
                   const SizedBox(
                     height: 100,
                   ),
                   const Register(),
 
-                  const Accomodations(),
+                  const AccommodationsWidget(),
                   SizedBox(
                     height: isMobile(context)
                         ? 200 * widthScaleF2F(context: context)
@@ -110,7 +110,7 @@ List searchmenuItems = [
   'All categories',
   'Events',
   'Jobs',
-  'Accomodations',
+  'accommodations',
   'Advertisements',
   'Services',
 ];

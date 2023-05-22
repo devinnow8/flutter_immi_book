@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:theimmibook/screens/404/page_not_found.dart';
+import 'package:theimmibook/screens/accommodations_screen/accomodations_screen.dart';
 import 'package:theimmibook/screens/home_screen/home_screen.dart';
 import 'package:theimmibook/screens/jobs_screen/jobs_screen.dart';
+import 'package:theimmibook/screens/jobs_screen/widgets/detailed_job_view.dart';
+import 'package:theimmibook/utils/widgets/common/detailed_view_holder.dart';
 
 class MyRouter {
   GoRouter router = GoRouter(
@@ -22,10 +25,19 @@ class MyRouter {
             )),
       ),
       GoRoute(
-        path: '/p2',
-        name: 'home2',
+        path: '/accommodations',
+        name: 'accommodations',
         pageBuilder: ((context, state) => const MaterialPage(
-              child: MyHomePage(title: 'home2'),
+              child: MyAccommodationsPage(),
+            )),
+      ),
+      GoRoute(
+        path: '/details',
+        name: 'detailedView',
+        pageBuilder: ((context, state) => MaterialPage(
+              child: DetailedViewHolder(
+                body: DetailedJobView(),
+              ),
             )),
       )
     ],

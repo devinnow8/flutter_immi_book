@@ -70,7 +70,7 @@ class _FooterState extends State<Footer> {
                         textScaleFactor: textScaleF2F(context: context),
                       ),
                       Text(
-                        'accomodations'.tr,
+                        'accommodations'.tr,
                         textScaleFactor: textScaleF2F(context: context),
                       ),
                       Text(
