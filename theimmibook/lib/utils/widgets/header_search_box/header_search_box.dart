@@ -7,8 +7,7 @@ import 'package:theimmibook/utils/ui_utilities.dart';
 
 class HeaderSearchBox extends StatefulWidget {
   final List searchMenuItems;
-  const HeaderSearchBox(
-      {
+  const HeaderSearchBox({
     super.key,
     this.searchMenuItems = const [],
   });
@@ -21,6 +20,11 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
   @override
   Widget build(context) {
     return Container(
+      constraints: BoxConstraints(
+          maxWidth: getScreenWidth(context: context) <= 1300 &&
+                  getScreenWidth(context: context) > mobileWidth
+              ? 560
+              : getSubsectionWidth(context)),
       alignment: Alignment.center,
       padding: getScreenWidth(context: context) > mobileWidth
           ? EdgeInsets.symmetric(
@@ -63,13 +67,37 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
                     height: isMobile(context)
                         ? 45 * widthScaleF2F(context: context)
                         : 55,
-                    constraints: const BoxConstraints(minWidth: 350),
+                    constraints: BoxConstraints(
+                        minWidth: 450,
+                        maxWidth: getScreenWidth(context: context) <= 1300 &&
+                                getScreenWidth(context: context) > mobileWidth
+                            ? 560
+                            : 700),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: const Color.fromARGB(255, 255, 255, 255),
-                 
                     ),
-                    child: Container(),
+                    child: Theme(
+                      data: ThemeData.light(),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: DropdownMenu(
+                          inputDecorationTheme: const InputDecorationTheme(
+                              isDense: false,
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none),
+                          width: getSubsectionWidth(context) / 2.6,
+                          leadingIcon: const Icon(Icons.location_on_rounded),
+                          initialSelection: 'Australia',
+                          dropdownMenuEntries: const [
+                            DropdownMenuEntry(value: 'red', label: 'Sydney'),
+                            DropdownMenuEntry(value: 'red', label: 'CA'),
+                            DropdownMenuEntry(value: 'red', label: 'LE'),
+                            DropdownMenuEntry(value: 'red', label: 'RA')
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -79,15 +107,30 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                    ),
                     height: 55,
-                    constraints: const BoxConstraints(minWidth: 350),
+                    constraints: BoxConstraints(
+                        maxWidth: getScreenWidth(context: context) <= 1300 &&
+                                getScreenWidth(context: context) > mobileWidth
+                            ? 560
+                            : 700),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: const Color.fromARGB(255, 255, 255, 255),
-                 
                     ),
-                    child: Container(),
+                    child: TextField(
+                        cursorHeight:
+                            max(35 * textScaleF2F(context: context), 20),
+                        style: const TextStyle(
+                            color: textColorBlack, fontSize: 22),
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 5),
+                            isDense: true,
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none)),
                   ),
                 )
               ],
@@ -97,7 +140,6 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
             Container(
               constraints: const BoxConstraints(
                   minWidth: double.maxFinite, maxHeight: 50),
-            
               margin: EdgeInsets.fromLTRB(
                   0, 40 * widthScaleF2F(context: context), 0, 0),
               child: Container(
@@ -105,7 +147,6 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
                   child: Wrap(
-                    
                     direction: Axis.horizontal,
                     spacing: 30,
                     runSpacing: 20,
