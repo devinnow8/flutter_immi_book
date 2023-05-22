@@ -7,9 +7,11 @@ import 'package:theimmibook/utils/ui_utilities.dart';
 
 class HeaderSearchBox extends StatefulWidget {
   final List searchMenuItems;
-  final String title;
   const HeaderSearchBox(
-      {super.key, this.searchMenuItems = const [], this.title = ''});
+      {
+    super.key,
+    this.searchMenuItems = const [],
+  });
 
   @override
   State<HeaderSearchBox> createState() => _HeaderSearchBoxState();
@@ -91,29 +93,39 @@ class _HeaderSearchBoxState extends State<HeaderSearchBox> {
           ),
           if (widget.searchMenuItems.isNotEmpty)
             Container(
+              constraints: const BoxConstraints(
+                  minWidth: double.maxFinite, maxHeight: 50),
+            
               margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-              child: Wrap(
-                direction: Axis.horizontal,
-                spacing: 30,
-                runSpacing: 20,
-                children: [
-                  ...widget.searchMenuItems.map(
-                    (e) => Container(
-                      alignment: Alignment.center,
-                      width: 150,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: Text(
-                        e,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  )
-                ],
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: Wrap(
+                    
+                    direction: Axis.horizontal,
+                    spacing: 30,
+                    runSpacing: 20,
+                    children: [
+                      ...widget.searchMenuItems.map(
+                        (e) => Container(
+                          alignment: Alignment.center,
+                          width: 150,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.white),
+                          ),
+                          child: Text(
+                            e,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
         ],

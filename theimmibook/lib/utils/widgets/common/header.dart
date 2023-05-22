@@ -9,7 +9,9 @@ import 'package:theimmibook/utils/widgets/app_bar/appbar.dart';
 import 'package:theimmibook/utils/widgets/header_search_box/header_search_box.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  final String title;
+  final List searchItems;
+  const Header({super.key, this.title = '', this.searchItems = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +45,18 @@ class Header extends StatelessWidget {
                         children: [
                           if (getScreenWidth(context: context) > mobileWidth)
                             divider(context),
+                      
                           SizedBox(
-                            height: 160 * widthScaleF2F(context: context),
+                            height: title == ''
+                                ? 160
+                                : 120 * widthScaleF2F(context: context),
                           ),
                           SizedBox(
                             width: (isMobile(context)
                                 ? 1100 * widthScaleF2F(context: context)
                                 : 1100 * widthScaleF2F(context: context)),
                             child: Text(
-                              'heroTagline'.tr,
+                              title != '' ? title : 'heroTagline'.tr,
                               style: Theme.of(context).textTheme.bodyLarge,
                               textScaleFactor: isMobile(context)
                                   ? textScaleF2F(context: context) * 0.5
@@ -63,7 +68,8 @@ class Header extends StatelessWidget {
                           SizedBox(
                             height: 160 * widthScaleF2F(context: context),
                           ),
-                          if (getScreenWidth(context: context) > mobileWidth)
+                          if (getScreenWidth(context: context) > mobileWidth &&
+                              title == '')
                             divider(context),
                           if (getScreenWidth(context: context) <= mobileWidth)
                             Column(
@@ -71,9 +77,12 @@ class Header extends StatelessWidget {
                                 SizedBox(
                                   height: 150 * widthScaleF2F(context: context),
                                 ),
-                                const HeaderSearchBox(),
+                                HeaderSearchBox(
+                                  searchMenuItems: searchItems,
+                                ),
                               ],
                             ),
+                          // if (title == '')
                           SizedBox(
                             height:
                                 getScreenWidth(context: context) <= mobileWidth
@@ -97,7 +106,15 @@ class Header extends StatelessWidget {
               ],
             ),
             if (getScreenWidth(context: context) > mobileWidth)
-              const HeaderSearchBox()
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 300),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: HeaderSearchBox(
+                    searchMenuItems: searchItems,
+                  ),
+                ),
+              )
           ],
         ));
   }

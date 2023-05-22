@@ -4,6 +4,7 @@ import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/common/header.dart';
+
 import '../home_screen/widgets/footer.dart';
 
 class MyJobsPage extends StatefulWidget {
@@ -45,7 +46,10 @@ class _MyJobsPageState extends State<MyJobsPage> {
                   0),
               child: Column(
                 children: [
-                  Header(),
+                  const Header(
+                    title: 'Jobs in Australia',
+                    searchItems: ['All Job Types', 'Pay Rates', 'WFH'],
+                  ),
                   SizedBox(
                     height: isMobile(context)
                         ? 250 * widthScaleF2F(context: context)
