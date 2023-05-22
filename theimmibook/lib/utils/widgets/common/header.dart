@@ -40,37 +40,54 @@ class Header extends StatelessWidget {
                               vertical: max(
                                   60 * widthScaleF2F(context: context), 20)),
                           child: const MyAppBar()),
+                      if (isMobile(context))
+                        SizedBox(
+                          height: 80 * widthScaleF2F(context: context),
+                        ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          if (getScreenWidth(context: context) > mobileWidth)
-                            divider(context),
-                      
                           SizedBox(
-                            height: title == ''
-                                ? 160
-                                : 120 * widthScaleF2F(context: context),
-                          ),
-                          SizedBox(
-                            width: (isMobile(context)
-                                ? 1100 * widthScaleF2F(context: context)
-                                : 1100 * widthScaleF2F(context: context)),
-                            child: Text(
-                              title != '' ? title : 'heroTagline'.tr,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              textScaleFactor: isMobile(context)
-                                  ? textScaleF2F(context: context) * 0.5
-                                  : min(
-                                      1, textScaleF2F(context: context) * 0.9),
-                              textAlign: TextAlign.center,
+                            height: isMobile(context)
+                                ? 500 * widthScaleF2F(context: context)
+                                : 500,
+                            child: Container(
+                              //  color: Colors.amber,
+                              child: Column(
+                                mainAxisAlignment: isMobile(context)
+                                    ? MainAxisAlignment.center
+                                    : MainAxisAlignment.spaceBetween,
+                                children: [
+                                  if (getScreenWidth(context: context) >
+                                      mobileWidth)
+                                    divider(context),
+                                  SizedBox(
+                                    width: (isMobile(context)
+                                        ? 1100 * widthScaleF2F(context: context)
+                                        : 1100 *
+                                            widthScaleF2F(context: context)),
+                                    child: Text(
+                                      title != '' ? title : 'heroTagline'.tr,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                      textScaleFactor: isMobile(context)
+                                          ? textScaleF2F(context: context) * 0.5
+                                          : min(
+                                              1,
+                                              textScaleF2F(context: context) *
+                                                  0.9),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  if (getScreenWidth(context: context) >
+                                          mobileWidth &&
+                                      title == '')
+                                    divider(context),
+                                  if (title != '') const SizedBox()
+                                ],
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: 160 * widthScaleF2F(context: context),
-                          ),
-                          if (getScreenWidth(context: context) > mobileWidth &&
-                              title == '')
-                            divider(context),
                           if (getScreenWidth(context: context) <= mobileWidth)
                             Column(
                               children: [
@@ -84,10 +101,9 @@ class Header extends StatelessWidget {
                             ),
                           // if (title == '')
                           SizedBox(
-                            height:
-                                getScreenWidth(context: context) <= mobileWidth
-                                    ? 350 * widthScaleF2F(context: context)
-                                    : 160,
+                            height: isMobile(context)
+                                ? 150 * widthScaleF2F(context: context)
+                                : 160,
                           )
                         ],
                       ),
