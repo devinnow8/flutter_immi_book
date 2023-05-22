@@ -1,7 +1,9 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:theimmibook/services/routing/router_config.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/common/nav_link.dart';
@@ -45,20 +47,24 @@ class DesktopAppBar extends StatelessWidget {
                             child: NavLink(
                                 text: e,
                                 onClick: () {
-                                  // log('clicked');
-                                  //print('Clicked');
+                                  GoRouter.of(context)
+                                      .pushNamed(e.toString().toLowerCase());
                                 },
                                 style:
                                     Theme.of(context)
                                     .textTheme
                                     .displayLarge!
-                                    .merge(TextStyle(fontSize: 40))),
+                                    .merge(const TextStyle(fontSize: 40))),
                           ),
                         ),
                     NavLink(
                         text: navMenuItems.last,
                         onClick: () {
-                          // log('Clicked');
+                          dev.log('clicked');
+                          GoRouter.of(context).pushNamed(
+                              navMenuItems.last.toString().toLowerCase());
+                          // return context.go('/jobs');
+                          // dev.log('clicked');
                         },
                         style: Theme.of(context)
                             .textTheme

@@ -7,7 +7,9 @@ import 'package:theimmibook/utils/ui_utilities.dart';
 
 class HeaderSearchBox extends StatefulWidget {
   final List searchMenuItems;
-  const HeaderSearchBox({super.key, this.searchMenuItems = const []});
+  final String title;
+  const HeaderSearchBox(
+      {super.key, this.searchMenuItems = const [], this.title = ''});
 
   @override
   State<HeaderSearchBox> createState() => _HeaderSearchBoxState();

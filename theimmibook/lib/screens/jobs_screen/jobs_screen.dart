@@ -1,27 +1,19 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:theimmibook/screens/home_screen/widgets/Faq.dart';
-import 'package:theimmibook/screens/home_screen/widgets/about_us.dart.dart';
-import 'package:theimmibook/screens/home_screen/widgets/accomodations.dart';
-import 'package:theimmibook/screens/home_screen/widgets/events.dart';
-import 'package:theimmibook/utils/widgets/common/header.dart';
 import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
-import 'package:theimmibook/screens/home_screen/widgets/posts.dart';
-import 'package:theimmibook/screens/home_screen/widgets/register.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
+import 'package:theimmibook/utils/widgets/common/header.dart';
+import '../home_screen/widgets/footer.dart';
 
-import 'widgets/footer.dart';
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class MyJobsPage extends StatefulWidget {
+  const MyJobsPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyJobsPage> createState() => _MyJobsPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyJobsPageState extends State<MyJobsPage> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -31,15 +23,12 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.white,
       body: ScrollbarTheme(
         data: ScrollbarThemeData(
-          
             thumbColor:
                 MaterialStateColor.resolveWith((states) => Colors.grey)),
         child: Scrollbar(
-          
           trackVisibility:
               getScreenWidth(context: context) < mobileWidth ? false : true,
           thickness: getScreenWidth(context: context) < mobileWidth ? 2 : 10,
-          
           hoverThickness:
               getScreenWidth(context: context) < mobileWidth ? 3 : 10,
           controller: _scrollController,
@@ -56,44 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   0),
               child: Column(
                 children: [
-                  const Header(),
+                  Header(),
                   SizedBox(
                     height: isMobile(context)
                         ? 250 * widthScaleF2F(context: context)
                         : 160,
                   ),
-
-                  const Posts(),
-                  SizedBox(
-                    height: isMobile(context)
-                        ? 250 * widthScaleF2F(context: context)
-                        : 140,
-                  ),
-                  const Events(),
-                  SizedBox(
-                    height: isMobile(context)
-                        ? 250 * widthScaleF2F(context: context)
-                        : 140,
-                  ),
                   const Jobs(),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  const Register(),
-
-                  const Accomodations(),
-                  SizedBox(
-                    height: isMobile(context)
-                        ? 200 * widthScaleF2F(context: context)
-                        : 100,
-                  ),
-                  const AboutUs(),
-                  SizedBox(
-                    height: isMobile(context)
-                        ? 200 * widthScaleF2F(context: context)
-                        : 100,
-                  ),
-                  const Faq(),
                   const Footer()
                 ],
               ),
@@ -105,7 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-
 List searchmenuItems = [
   'All categories',
   'Events',
@@ -114,7 +71,6 @@ List searchmenuItems = [
   'Advertisements',
   'Services',
 ];
-
 
 List dummyCards = [
   'This is title',
@@ -149,7 +105,6 @@ Widget sectionCard(double maxWidth) {
     );
   });
 }
-
 
 Widget divider(context) {
   return ConstrainedBox(

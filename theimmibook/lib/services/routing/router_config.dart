@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:theimmibook/screens/404/page_not_found.dart';
 import 'package:theimmibook/screens/home_screen/home_screen.dart';
+import 'package:theimmibook/screens/jobs_screen/jobs_screen.dart';
 
 class MyRouter {
   GoRouter router = GoRouter(
@@ -14,10 +15,10 @@ class MyRouter {
             )),
       ),
       GoRoute(
-        path: '/p1',
-        name: 'home1',
+        path: '/jobs',
+        name: 'jobs',
         pageBuilder: ((context, state) => const MaterialPage(
-              child: MyHomePage(title: 'home1'),
+              child: MyJobsPage(),
             )),
       ),
       GoRoute(

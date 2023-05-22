@@ -42,7 +42,7 @@ class Header extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           if (getScreenWidth(context: context) > mobileWidth)
-                          divider(context),
+                            divider(context),
                           SizedBox(
                             height: 160 * widthScaleF2F(context: context),
                           ),
@@ -64,8 +64,7 @@ class Header extends StatelessWidget {
                             height: 160 * widthScaleF2F(context: context),
                           ),
                           if (getScreenWidth(context: context) > mobileWidth)
-                          divider(context),
-                          
+                            divider(context),
                           if (getScreenWidth(context: context) <= mobileWidth)
                             Column(
                               children: [
@@ -94,11 +93,11 @@ class Header extends StatelessWidget {
                     !isMobile(context))
                   const SizedBox(
                     height: 90,
-                )
+                  )
               ],
             ),
             if (getScreenWidth(context: context) > mobileWidth)
-            const HeaderSearchBox()
+              const HeaderSearchBox()
           ],
         ));
   }

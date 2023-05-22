@@ -23,9 +23,15 @@ class MobileAppBar extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 25),
               textScaleFactor: (textScaleF2F(context: context) * 1.5),
             ),
-            SvgPicture.asset(
-              'burgerMenuIcon.svg',
-              height: 18 * widthScaleF2F(context: context) * 4.2,
+            GestureDetector(
+              onTap: () {},
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: SvgPicture.asset(
+                  'burgerMenuIcon.svg',
+                  height: 18 * widthScaleF2F(context: context) * 4.2,
+                ),
+              ),
             ),
           ],
         ),

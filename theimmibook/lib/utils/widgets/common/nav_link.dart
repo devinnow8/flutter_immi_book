@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:theimmibook/utils/consts.dart';
 
 class NavLink extends StatefulWidget {
@@ -24,6 +27,10 @@ class _NavLinkState extends State<NavLink> {
 
   @override
   Widget build(BuildContext context) {
+    var location = GoRouter.of(context).location;
+    location = location == '/' ? 'home' : location.substring(1);
+    print('location---->>>>$location');
+    print(location == widget.text.toString());
     return GestureDetector(
       onTap: () => widget.onClick(),
       child: MouseRegion(
@@ -38,7 +45,8 @@ class _NavLinkState extends State<NavLink> {
           cursor: SystemMouseCursors.click,
           child: Text(
             widget.text,
-            style: hover == true
+          style: (hover == true ||
+                  location == widget.text.toString().toLowerCase())
                 ? widget.style!
                     .merge(const TextStyle(
                   fontWeight: FontWeight.w600, color: highlightColor))

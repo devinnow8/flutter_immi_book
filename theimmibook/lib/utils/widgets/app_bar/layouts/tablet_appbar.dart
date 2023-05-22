@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/common/nav_link.dart';
@@ -42,28 +43,30 @@ class TabletAppBar extends StatelessWidget {
                     NavLink(
                         text: navMenuItems[0],
                         onClick: () {
-                          // log('clicked');
-                          //print('Clicked');
+                     
+                          GoRouter.of(context).pushNamed(
+                              navMenuItems[0].toString().toLowerCase());
                         },
                         style: Theme.of(context).textTheme.displayLarge),
                     NavLink(
                         text: navMenuItems[2],
                         onClick: () {
-                          // log('clicked');
-                          //print('Clicked');
+                          GoRouter.of(context).pushNamed(
+                              navMenuItems[2].toString().toLowerCase());
                         },
                         style: Theme.of(context).textTheme.displayLarge),
                     NavLink(
                         text: navMenuItems[3],
                         onClick: () {
-                          // log('clicked');
-                          //print('Clicked');
+                          GoRouter.of(context).pushNamed(
+                              navMenuItems[3].toString().toLowerCase());
                         },
                         style: Theme.of(context).textTheme.displayLarge),
                     NavLink(
                         text: navMenuItems.last,
                         onClick: () {
-                          // log('Clicked');
+                          GoRouter.of(context).pushNamed(
+                              navMenuItems.last.toString().toLowerCase());
                         },
                         style: Theme.of(context).textTheme.displayLarge),
                   ],

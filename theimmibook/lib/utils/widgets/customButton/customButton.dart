@@ -48,8 +48,7 @@ class customButton extends StatelessWidget {
                     color: highlightColor, width: smallButton ? 2 : 4)),
             padding: EdgeInsets.symmetric(
                 vertical: _hover.value
-                    ? (textsize * widthScaleF2F(context: context)) *
-                        widthScaleF2F(context: context)
+                    ? (textsize * widthScaleF2F(context: context)) 
                     : textsize * widthScaleF2F(context: context),
                 horizontal:
                     (smallButton ? 25 : 60) * widthScaleF2F(context: context)),
@@ -59,6 +58,7 @@ class customButton extends StatelessWidget {
                   ? textScaleF2F(context: context) * 0.7
                   : textScaleF2F(context: context),
               style: TextStyle(
+                  letterSpacing: smallButton ? 1.5 : 1,
                   color: _hover.value ? highlightTextColor : textColor,
                   fontWeight: FontWeight.w700,
                   fontSize: _hover.value ? textsize + .1 : textsize),
