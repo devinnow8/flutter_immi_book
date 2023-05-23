@@ -80,7 +80,7 @@ Widget getDetailedJobHeader(context) {
           ],
         ),
         SizedBox(
-          height: 20 * widthScaleF2F(context: context),
+          height: 15 * widthScaleF2F(context: context),
         ),
         Flex(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +102,7 @@ Widget getDetailedJobHeader(context) {
             ]),
 
         SizedBox(
-          height: 35 * widthScaleF2F(context: context),
+          height: 30 * widthScaleF2F(context: context),
         ),
         Text(
           employer,

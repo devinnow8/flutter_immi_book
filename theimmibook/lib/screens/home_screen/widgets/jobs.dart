@@ -21,6 +21,7 @@ class _JobsState extends State<Jobs> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (widget.miniWidget == true)
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
@@ -37,6 +38,7 @@ class _JobsState extends State<Jobs> {
             ),
           ),
         ),
+      
         SizedBox(
           height:
               isMobile(context) ? 100 * widthScaleF2F(context: context) : 60,
@@ -204,7 +206,7 @@ Widget jobCard() {
                                 smallButton: true,
                                 onPressed: () {
                                   GoRouter.of(context).pushNamed('detailedView',
-                                      extra: const DetailedJobView());
+                                  );
                                   print('clicked');
                                 },
                                 textColor: textColorWhite,

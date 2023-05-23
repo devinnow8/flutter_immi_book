@@ -49,11 +49,7 @@ class _MyJobsPageState extends State<MyJobsPage> {
                     title: 'Jobs in Australia',
                     searchItems: ['All Job Types', 'Pay Rates', 'WFH'],
                   ),
-                  SizedBox(
-                    height: isMobile(context)
-                        ? 250 * widthScaleF2F(context: context)
-                        : 160,
-                  ),
+          
                   Jobs(
                     miniWidget: false,
                   ),
