@@ -1,11 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:theimmibook/screens/home_screen/home_screen.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
-import 'package:video_player/video_player.dart';
 
 class Footer extends StatefulWidget {
   const Footer({super.key});
@@ -19,7 +16,7 @@ class _FooterState extends State<Footer> {
   Widget build(BuildContext context) {
     return Container(
       width: getScreenWidth(context: context),
-      color: Color.fromARGB(255, 0, 0, 0),
+      color: const Color.fromRGBO(0, 10, 78, 1),
       child: Column(
         children: [
           const SizedBox(

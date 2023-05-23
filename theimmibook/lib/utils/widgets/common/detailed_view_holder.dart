@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:theimmibook/screens/home_screen/widgets/footer.dart';
 import 'package:theimmibook/utils/widgets/app_bar/appbar.dart';
 import 'package:theimmibook/utils/consts.dart';
@@ -65,42 +65,55 @@ class _DetailedViewHolderState extends State<DetailedViewHolder> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: (getScreenWidth(context: context) -
-                    getSubsectionWidth(context))),
             color: const Color.fromRGBO(19, 19, 63, 1),
-            height: 120,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  constraints: BoxConstraints(maxWidth: 250),
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  decoration: BoxDecoration(
-                      color: bodyColorBlue,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        CupertinoIcons.location_fill,
-                        color: Colors.white,
+            height: 65,
+            alignment: Alignment.center,
+            width: getScreenWidth(context: context),
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(maxWidth: getSubsectionWidth(context) * 0.85),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 40 * widthScaleF2F(context: context),
+                          vertical: 10),
+                      decoration: BoxDecoration(
+                          color: bodyColorBlue,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            'locationArrow.svg',
+                            height: 15,
+                            color: textColorWhite,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          SizedBox(
+                            width: 15 * widthScaleF2F(context: context),
+                          ),
+                          Text(
+                            'Quick Apply',
+                            style: const TextStyle(fontSize: 22),
+                            textScaleFactor:
+                                textScaleF2F(context: context) * 0.85,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Quick Apply',
-                          style: TextStyle(fontSize: 22),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                )
-              ],
+                  if (isMobile(context))
+                    SizedBox(
+                      width: getHorizontalPadding(context),
+                    )
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
