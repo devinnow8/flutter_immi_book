@@ -30,14 +30,19 @@ class _JobsState extends State<Jobs> {
             child: getHeadingAndOptions(
               context: context,
               title: 'jobsTitle'.tr,
-              options: Text(
-                'viewAllJobs'.tr,
-                style: sectionHeadingOptionsStyle,
-                textScaleFactor: textScaleF2F(context: context),
+                options: InkWell(
+                  onTap: () {
+                    GoRouter.of(context).pushNamed('jobs');
+                  },
+                  child: Text(
+                    'viewAllJobs'.tr,
+                    style: sectionHeadingOptionsStyle,
+                    textScaleFactor: textScaleF2F(context: context),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
       
         SizedBox(
           height:
@@ -205,7 +210,8 @@ Widget jobCard() {
                                 highlightBgColor: Colors.white,
                                 smallButton: true,
                                 onPressed: () {
-                                  GoRouter.of(context).pushNamed('detailedView',
+                                  GoRouter.of(context).pushNamed(
+                                    'detailedJobView',
                                   );
                                   print('clicked');
                                 },
@@ -469,7 +475,9 @@ Widget jobCardMobile() {
                       highlightTextColor: const Color.fromRGBO(47, 47, 170, 1),
                       highlightBgColor: Colors.white,
                       smallButton: true,
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed('detailedJobView');
+                      },
                       textColor: textColorWhite,
                       highlightColor: const Color.fromRGBO(47, 47, 170, 1),
                       bgColor: const Color.fromRGBO(47, 47, 170, 1),

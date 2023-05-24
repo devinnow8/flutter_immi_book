@@ -5,6 +5,7 @@ import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 import 'package:theimmibook/utils/widgets/common/custom_child_button.dart';
+import 'package:theimmibook/utils/widgets/common/detailed_view_holder.dart';
 
 class DetailedJobView extends StatefulWidget {
   const DetailedJobView({super.key});
@@ -16,28 +17,30 @@ class DetailedJobView extends StatefulWidget {
 class _DetailedJobViewState extends State<DetailedJobView> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
+    return DetailedViewHolder(
+      showStickyRibbon: true,
+      body: Column(
+        children: [
+          Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: getHorizontalPadding(context)),
+              child: getDetailedJobHeader(context)),
+          const SizedBox(
+            height: 50,
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
-            child: getDetailedJobHeader(context)),
-        const SizedBox(
-          height: 50,
-        ),
-
-        const SizedBox(
-          height: 50,
-        ),
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getHorizontalPadding(context)),
-          child: getDetailedJobBody(context),
-        ),
-        const SizedBox(
-          height: 50,
-        ),
-      ],
+            child: getDetailedJobBody(context),
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+        ],
+      ),
     );
   }
 }

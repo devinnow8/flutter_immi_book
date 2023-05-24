@@ -64,8 +64,13 @@ double textScaleF2F({required context}) {
 
 
 double widthScaleF2F({required context}) {
-  if (getScreenWidth(context: context) / (designScreenWidth) > 1) return 1;
-  return (getScreenWidth(context: context) / (designScreenWidth));
+  if (kIsWeb) {
+    if (getScreenWidth(context: context) / (designScreenWidth) > 1) return 1;
+    return (getScreenWidth(context: context) / (designScreenWidth));
+  } else {
+    if (getScreenWidth(context: context) / (480) > 1) return 1;
+    return (getScreenWidth(context: context) / (480));
+  }
 }
 
 Widget getRichText(

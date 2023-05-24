@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         getPages: AppPages.pages,
       routeInformationParser: MyRouter().router.routeInformationParser,
       //  unknownRoute: AppPages.pages[0],
-        transitionDuration: Duration.zero,
+  
       routerDelegate: MyRouter().router.routerDelegate,
     );
   }

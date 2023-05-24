@@ -96,6 +96,7 @@ const Color bodyBgSecondaryColor = Color.fromRGBO(223, 223, 255, 1);
 const Color bodyBgTertiaryColor = Color.fromRGBO(10, 10, 78, 1);
 const Color bodyColorBlue = Color.fromRGBO(70, 70, 182, 1);
 
+
 //text colors
 const Color textColorWhite = Colors.white;
 const Color textColorBlack = Colors.black;

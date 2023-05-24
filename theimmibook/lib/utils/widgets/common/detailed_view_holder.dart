@@ -114,14 +114,19 @@ class _DetailedViewHolderState extends State<DetailedViewHolder> {
                                 SizedBox(
                                   width: 15 * widthScaleF2F(context: context),
                                 ),
-                                Text(
-                                  'Quick Apply',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 22,
-                                      color: bodyColorBlue),
-                                  textScaleFactor:
-                                      textScaleF2F(context: context) * 0.85,
+                                InkWell(
+                                  onTap: () {
+                                    GoRouter.of(context).pushNamed('applyNow');
+                                  },
+                                  child: Text(
+                                    'Quick Apply',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 22,
+                                        color: bodyColorBlue),
+                                    textScaleFactor:
+                                        textScaleF2F(context: context) * 0.85,
+                                  ),
                                 ),
                               ],
                             ),

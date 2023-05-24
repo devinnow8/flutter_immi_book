@@ -29,8 +29,7 @@ class _NavLinkState extends State<NavLink> {
   Widget build(BuildContext context) {
     var location = GoRouter.of(context).location;
     location = location == '/' ? 'home' : location.substring(1);
-    print('location---->>>>$location');
-    print(location == widget.text.toString());
+
     return GestureDetector(
       onTap: () => widget.onClick(),
       child: MouseRegion(

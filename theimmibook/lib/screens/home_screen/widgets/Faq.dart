@@ -111,6 +111,7 @@ Widget faqTile() {
           },
           behavior: HitTestBehavior.translucent,
           child: Container(
+           
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -152,17 +153,14 @@ Widget faqTile() {
                               width: 62,
                             ),
                             ConstrainedBox(
-                                constraints:
-                                     BoxConstraints(
+                                constraints: BoxConstraints(
                                     maxWidth:
                                         1200 * widthScaleF2F(context: context)),
-                                child: Expanded(
-                                  child: Text(
-                                    answer,
-                                    textScaleFactor:
-                                        textScaleF2F(context: context),
-                                    style: const TextStyle(fontSize: 30),
-                                  ),
+                                child: Text(
+                                  answer,
+                                  textScaleFactor:
+                                      textScaleF2F(context: context),
+                                  style: const TextStyle(fontSize: 30),
                                 )),
                           ],
                         )

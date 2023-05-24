@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:theimmibook/screens/home_screen/widgets/jobs.dart';
@@ -35,7 +36,7 @@ class _CreateJobState extends State<CreateJob> {
                     maxWidth: isMobile(context)
                         ? getSubsectionWidth(context)
                         : getSubsectionWidth(context)) *
-                0.85,
+                0.70,
             padding: EdgeInsets.symmetric(
                 horizontal: 60 * widthScaleF2F(context: context), vertical: 24),
             decoration: BoxDecoration(
@@ -194,7 +195,12 @@ class _CreateJobState extends State<CreateJob> {
 }
 
 Widget getInputContainer(String text,
-    {bool large = false, trailingText = '', required context}) {
+    {bool large = false,
+    AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
+    dynamic validator,
+    trailingText = '',
+    required context,
+    List<TextInputFormatter> inputFormatters = const []}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -229,7 +235,10 @@ Widget getInputContainer(String text,
         height: large
             ? 155 * textScaleF2F(context: context)
             : 60 * textScaleF2F(context: context),
-        child: TextField(
+        child: TextFormField(
+            autovalidateMode: autovalidateMode,
+            validator: validator,
+            inputFormatters: inputFormatters,
             maxLines: 50,
             style: TextStyle(
                 color: textColorBlack,
@@ -252,7 +261,6 @@ Widget getInputContainer(String text,
 }
 
 Widget getColumnModule(String text, dynamic onPressed, context) {
-
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,

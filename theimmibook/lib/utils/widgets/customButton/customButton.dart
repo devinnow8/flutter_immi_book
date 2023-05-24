@@ -60,9 +60,7 @@ class customButton extends StatelessWidget {
                       widthScaleF2F(context: context)),
               child: Text(
                 text,
-                textScaleFactor: isMobile(context)
-                    ? textScaleF2F(context: context) * 0.7
-                    : textScaleF2F(context: context),
+                textScaleFactor: textScaleF2F(context: context),
                 style: TextStyle(
                     letterSpacing: smallButton ? 1.5 : 1,
                     color: _hover.value ? highlightTextColor : textColor,
