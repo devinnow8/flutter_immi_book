@@ -17,7 +17,7 @@ final bool showStickyRibbon;
 
 class _DetailedViewHolderState extends State<DetailedViewHolder> {
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +62,9 @@ class _DetailedViewHolderState extends State<DetailedViewHolder> {
                         height: 30,
                       ),
                       widget.body,
+                      SizedBox(
+                        height: 150 * widthScaleF2F(context: context),
+                      ),
                       const Footer()
                     ],
                   ),

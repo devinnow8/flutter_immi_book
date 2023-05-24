@@ -46,10 +46,7 @@ class MyRouter {
         path: '/createJob',
         name: 'createJob',
         pageBuilder: ((context, state) => const MaterialPage(
-              child: DetailedViewHolder(
-                showStickyRibbon: false,
-                body: CreateJob(),
-              ),
+              child: CreateJob()
             )),
       )
     ],

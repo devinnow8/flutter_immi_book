@@ -44,10 +44,14 @@ class customButton extends StatelessWidget {
           child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(
+                      8 * widthScaleF2F(context: context)),
                   color: (_hover.value) ? highlightBgColor : bgColor,
                   border: Border.all(
-                      color: highlightColor, width: smallButton ? 2 : 4)),
+                      color: highlightColor,
+                      width: smallButton
+                          ? 2 * widthScaleF2F(context: context)
+                          : 4 * widthScaleF2F(context: context))),
               padding: EdgeInsets.symmetric(
                   vertical: _hover.value
                       ? (textsize * widthScaleF2F(context: context))
