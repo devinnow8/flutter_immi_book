@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:theimmibook/utils/consts.dart';
 import 'package:theimmibook/utils/ui_utilities.dart';
 
-class customButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final Color highlightColor;
   final Color highlightBgColor;
   final Color bgColor;
@@ -12,7 +12,9 @@ class customButton extends StatelessWidget {
   final dynamic onPressed;
   final bool smallButton;
   final String text;
-  customButton(
+  final double customfontSize;
+  final FontWeight customFontWeight;
+  CustomButton(
       {super.key,
       this.smallButton = false,
       required this.highlightColor,
@@ -21,6 +23,9 @@ class customButton extends StatelessWidget {
       required this.highlightBgColor,
       required this.highlightTextColor,
       required this.textColor,
+      this.customFontWeight = FontWeight.w700,
+      this.customfontSize = 1,
+
       required this.onPressed});
 
   // ignore: prefer_final_fields
@@ -28,8 +33,10 @@ class customButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double textsize = smallButton ? 14 : 20;
-
+    double textsize = smallButton ? 14 : 22;
+    if (customfontSize != 1) {
+      textsize = customfontSize;
+    }
     return Obx(
       () => MouseRegion(
         cursor: MaterialStateMouseCursor.clickable,
@@ -50,21 +57,22 @@ class customButton extends StatelessWidget {
                   border: Border.all(
                       color: highlightColor,
                       width: smallButton
-                          ? 2 * widthScaleF2F(context: context)
-                          : 4 * widthScaleF2F(context: context))),
+                          ? 1 * widthScaleF2F(context: context)
+                          : 2 * widthScaleF2F(context: context))),
               padding: EdgeInsets.symmetric(
                   vertical: _hover.value
-                      ? (textsize * widthScaleF2F(context: context))
-                      : textsize * widthScaleF2F(context: context),
+                      ? (textsize * widthScaleF2F(context: context)) * .75
+                      : textsize * widthScaleF2F(context: context) * .75,
                   horizontal: (smallButton ? 25 : 60) *
                       widthScaleF2F(context: context)),
               child: Text(
                 text,
                 textScaleFactor: textScaleF2F(context: context),
                 style: TextStyle(
+                    
                     letterSpacing: smallButton ? 1.5 : 1,
                     color: _hover.value ? highlightTextColor : textColor,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: customFontWeight,
                     fontSize: _hover.value ? textsize + .1 : textsize),
               )),
         ),

@@ -80,7 +80,7 @@ class Register extends StatelessWidget {
                 ? 60 * widthScaleF2F(context: context) + 15
                 : 60,
           ),
-          customButton(
+          CustomButton(
             onPressed: () {},
             highlightBgColor: Colors.white,
             bgColor: highlightColor,

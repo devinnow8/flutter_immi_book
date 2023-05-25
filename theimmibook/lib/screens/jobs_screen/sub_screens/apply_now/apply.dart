@@ -57,64 +57,64 @@ class _ApplyNowState extends State<ApplyNow> {
             SizedBox(
               height: 60 * widthScaleF2F(context: context),
             ),
-            if (getScreenWidth(context: context) <= 1200 &&
-                getScreenWidth(context: context) > 1800)
-              ConstrainedBox(
-                constraints:
-                    BoxConstraints(maxWidth: getSubsectionWidth(context) * .70),
-                child: NavigationBar(
-                  shadowColor: Colors.transparent,
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                  indicatorColor: bodyBgSecondaryColor,
-                  destinations: [
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      decoration: BoxDecoration(
-                        color: navRailColor,
-                        borderRadius: BorderRadius.circular(
-                          11 * widthScaleF2F(context: context),
-                        ),
-                      ),
-                      child: Text(
-                        'Personal Information',
-                        textScaleFactor: textScaleF2F(context: context),
-                        style: TextStyle(fontSize: 14, color: textColorBlack),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      decoration: BoxDecoration(
-                        color: navRailColor,
-                        borderRadius: BorderRadius.circular(
-                          11 * widthScaleF2F(context: context),
-                        ),
-                      ),
-                      child: Text(
-                        'Personal Information',
-                        textScaleFactor: textScaleF2F(context: context),
-                        style: TextStyle(fontSize: 14, color: textColorBlack),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(vertical: 2),
-                      decoration: BoxDecoration(
-                        color: bodyBgSecondaryColor,
-                        borderRadius: BorderRadius.circular(
-                          11 * widthScaleF2F(context: context),
-                        ),
-                      ),
-                      child: Text(
-                        'Personal Information',
-                        textScaleFactor: textScaleF2F(context: context),
-                        style: TextStyle(fontSize: 14, color: textColorBlack),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            // if (getScreenWidth(context: context) <= 1200 &&
+            //     getScreenWidth(context: context) > 1800)
+            //   ConstrainedBox(
+            //     constraints:
+            //         BoxConstraints(maxWidth: getSubsectionWidth(context) * .70),
+            //     child: NavigationBar(
+            //       shadowColor: Colors.transparent,
+            //       backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            //       indicatorColor: bodyBgSecondaryColor,
+            //       destinations: [
+            //         Container(
+            //           alignment: Alignment.center,
+            //           padding: EdgeInsets.symmetric(vertical: 2),
+            //           decoration: BoxDecoration(
+            //             color: navRailColor,
+            //             borderRadius: BorderRadius.circular(
+            //               11 * widthScaleF2F(context: context),
+            //             ),
+            //           ),
+            //           child: Text(
+            //             'Personal Information',
+            //             textScaleFactor: textScaleF2F(context: context),
+            //             style: TextStyle(fontSize: 14, color: textColorBlack),
+            //           ),
+            //         ),
+            //         Container(
+            //           alignment: Alignment.center,
+            //           padding: EdgeInsets.symmetric(vertical: 2),
+            //           decoration: BoxDecoration(
+            //             color: navRailColor,
+            //             borderRadius: BorderRadius.circular(
+            //               11 * widthScaleF2F(context: context),
+            //             ),
+            //           ),
+            //           child: Text(
+            //             'Personal Information',
+            //             textScaleFactor: textScaleF2F(context: context),
+            //             style: TextStyle(fontSize: 14, color: textColorBlack),
+            //           ),
+            //         ),
+            //         Container(
+            //           alignment: Alignment.center,
+            //           padding: EdgeInsets.symmetric(vertical: 2),
+            //           decoration: BoxDecoration(
+            //             color: bodyBgSecondaryColor,
+            //             borderRadius: BorderRadius.circular(
+            //               11 * widthScaleF2F(context: context),
+            //             ),
+            //           ),
+            //           child: Text(
+            //             'Personal Information',
+            //             textScaleFactor: textScaleF2F(context: context),
+            //             style: TextStyle(fontSize: 14, color: textColorBlack),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -180,14 +180,16 @@ class _ApplyNowState extends State<ApplyNow> {
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                         maxHeight: isMobile(context)
-                            ? 900 * widthScaleF2F(context: context) * 3
-                            : 900),
+                            ? 1200 * widthScaleF2F(context: context) * 3.5
+                            : 1200),
                     child: PageView(
                       physics: const NeverScrollableScrollPhysics(),
                       controller: _controller,
                       allowImplicitScrolling: false,
-                      children: const [
-                        PersonalDetailsForm(),
+                      children: [
+                        PersonalDetailsForm(
+                          controller: _controller,
+                        ),
                         ExperienceDetailsForm(),
                         ReviewForm(),
                       ],

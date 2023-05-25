@@ -5,7 +5,13 @@ import 'package:theimmibook/utils/ui_utilities.dart';
 class FormContainer extends StatelessWidget {
   final Widget body;
   final String title;
-  const FormContainer({super.key, required this.body, required this.title});
+
+
+  const FormContainer({
+    super.key,
+    required this.body,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +37,12 @@ class FormContainer extends StatelessWidget {
               ]),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+
             children: [
               SizedBox(
                 height: 37 * widthScaleF2F(context: context),
               ),
+              if (title != '')
               Text(
                 title,
                 textAlign: TextAlign.center,
@@ -43,7 +51,8 @@ class FormContainer extends StatelessWidget {
                     color: bodyBgTertiaryColor,
                     fontWeight: FontWeight.w800),
                 textScaleFactor: textScaleF2F(context: context),
-              ),
+                ),
+              if (title != '')
               SizedBox(
                 height: 32 * widthScaleF2F(context: context),
               ),

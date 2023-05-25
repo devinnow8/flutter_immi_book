@@ -204,7 +204,7 @@ Widget jobCard() {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              customButton(
+                              CustomButton(
                                 highlightTextColor:
                                     const Color.fromRGBO(47, 47, 170, 1),
                                 highlightBgColor: Colors.white,
@@ -471,7 +471,7 @@ Widget jobCardMobile() {
                     SizedBox(
                       height: 35 * widthScaleF2F(context: context),
                     ),
-                    customButton(
+                    CustomButton(
                       highlightTextColor: const Color.fromRGBO(47, 47, 170, 1),
                       highlightBgColor: Colors.white,
                       smallButton: true,

@@ -177,7 +177,7 @@ class _CreateJobState extends State<CreateJob> {
                   const SizedBox(
                     height: 42,
                   ),
-                  customButton(
+                  CustomButton(
                       highlightColor: bodyColorBlue,
                       text: 'Create Job',
                       bgColor: bodyColorBlue,
